@@ -1,0 +1,6 @@
+{
+  "name": "yugioh_card_db",
+  "version": "1.0.0",
+  "description": "卡表示例网页：首页可拖拽卡片入口 + UT01~UT10 本地化表格子页面",
+  "private": true
+}

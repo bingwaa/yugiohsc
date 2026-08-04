@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>UT01</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="../index.html">简中卡表</a>
+    </div>
+  </header>
+
+  <main class="container table-wrap">
+    <div class="panel">
+      <header class="panel-head">
+        <div>
+          <h1 id="page-title">实战精选</h1>
+          <p class="small">卡图来自b站动态</p>
+        </div>
+        <div class="panel-tools">
+          <button id="toggle-mode" class="action-btn">显示全部</button>
+          <div class="paging">
+            <button id="prev-page" class="action-btn">上一页</button>
+            <span id="page-info" class="small"></span>
+            <button id="next-page" class="action-btn">下一页</button>
+          </div>
+          <input id="search-input" placeholder="搜索卡名或编号" aria-label="搜索">
+        </div>
+      </header>
+      <div class="table-container">
+        <div class="data-grid" id="data-grid" role="grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">©2026 镜饼蛙</div>
+  </footer>
+  <script>
+  window.CARD_DATA = Array.from({ length: 160 }, (_, i) => ({
+    id: i + 1,
+    name: String(i + 1).padStart(3, '0'),
+    desc: String(i + 1).padStart(3, '0'),
+    img: 'assets/images/null.png'
+  }));
+  CARD_DATA[0].img = '';
+  CARD_DATA[0].name = '';
+  CARD_DATA[1].img = '';
+  CARD_DATA[1].name = '';
+  CARD_DATA[2].img = '';
+  CARD_DATA[2].name = '';
+  CARD_DATA[3].img = '';
+  CARD_DATA[3].name = '';
+  CARD_DATA[4].img = 'https://i1.hdslb.com/bfs/new_dyn/857dc4c6a2ab6541d5c9c7bd52550326519200091.jpg';
+  CARD_DATA[4].name = '冰结界之龙胤 千枪龙';
+  CARD_DATA[5].img = 'https://i1.hdslb.com/bfs/new_dyn/8e0abd25fc94208fad56bc53ff773427519200091.jpg';
+  CARD_DATA[5].name = '编号101 寂静荣耀方舟骑士-灵魂救济';
+  CARD_DATA[6].img = 'https://i1.hdslb.com/bfs/new_dyn/3514b417f184d463cc96a45464d09335519200091.jpg';
+  CARD_DATA[6].name = '月女神之至天';
+  CARD_DATA[7].img = '';
+  CARD_DATA[7].name = '';
+  CARD_DATA[8].img = '';
+  CARD_DATA[8].name = '';
+  CARD_DATA[9].img = '';
+  CARD_DATA[9].name = '';
+  CARD_DATA[10].img = '';
+  CARD_DATA[10].name = '';
+  CARD_DATA[11].img = '';
+  CARD_DATA[11].name = '';
+  CARD_DATA[12].img = '';
+  CARD_DATA[12].name = '';
+  CARD_DATA[13].img = '';
+  CARD_DATA[13].name = '';
+  CARD_DATA[14].img = '';
+  CARD_DATA[14].name = '';
+  CARD_DATA[15].img = '';
+  CARD_DATA[15].name = '';
+  CARD_DATA[16].img = '';
+  CARD_DATA[16].name = '';
+  CARD_DATA[17].img = '';
+  CARD_DATA[17].name = '';
+  CARD_DATA[18].img = '';
+  CARD_DATA[18].name = '';
+  CARD_DATA[19].img = '';
+  CARD_DATA[19].name = '';
+  CARD_DATA[20].img = '';
+  CARD_DATA[20].name = '';
+  CARD_DATA[21].img = '';
+  CARD_DATA[21].name = '';
+  CARD_DATA[22].img = '';
+  CARD_DATA[22].name = '';
+  CARD_DATA[23].img = '';
+  CARD_DATA[23].name = '';
+  CARD_DATA[24].img = '';
+  CARD_DATA[24].name = '';
+  CARD_DATA[25].img = '';
+  CARD_DATA[25].name = '';
+  CARD_DATA[26].img = '';
+  CARD_DATA[26].name = '';
+  CARD_DATA[27].img = '';
+  CARD_DATA[27].name = '';
+  CARD_DATA[28].img = '';
+  CARD_DATA[28].name = '';
+  CARD_DATA[29].img = '';
+  CARD_DATA[29].name = '';
+  CARD_DATA[30].img = '';
+  CARD_DATA[30].name = '';
+  CARD_DATA[31].img = '';
+  CARD_DATA[31].name = '';
+  CARD_DATA[32].img = '';
+  CARD_DATA[32].name = '';
+  CARD_DATA[33].img = '';
+  CARD_DATA[33].name = '';
+  CARD_DATA[34].img = '';
+  CARD_DATA[34].name = '';
+  CARD_DATA[35].img = '';
+  CARD_DATA[35].name = '';
+  CARD_DATA[36].img = '';
+  CARD_DATA[36].name = '';
+  CARD_DATA[37].img = '';
+  CARD_DATA[37].name = '';
+  CARD_DATA[38].img = '';
+  CARD_DATA[38].name = '';
+  CARD_DATA[39].img = '';
+  CARD_DATA[39].name = '';
+  CARD_DATA[40].img = '';
+  CARD_DATA[40].name = '';
+  CARD_DATA[41].img = '';
+  CARD_DATA[41].name = '';
+  CARD_DATA[42].img = '';
+  CARD_DATA[42].name = '';
+  CARD_DATA[43].img = '';
+  CARD_DATA[43].name = '';
+  CARD_DATA[44].img = '';
+  CARD_DATA[44].name = '';
+  CARD_DATA[45].img = '';
+  CARD_DATA[45].name = '';
+  CARD_DATA[46].img = '';
+  CARD_DATA[46].name = '';
+  CARD_DATA[47].img = '';
+  CARD_DATA[47].name = '';
+  CARD_DATA[48].img = '';
+  CARD_DATA[48].name = '';
+  CARD_DATA[49].img = '';
+  CARD_DATA[49].name = '';
+  CARD_DATA[50].img = '';
+  CARD_DATA[50].name = '';
+  CARD_DATA[51].img = '';
+  CARD_DATA[51].name = '';
+  CARD_DATA[52].img = '';
+  CARD_DATA[52].name = '';
+  CARD_DATA[53].img = '';
+  CARD_DATA[53].name = '';
+  CARD_DATA[54].img = '';
+  CARD_DATA[54].name = '';
+  CARD_DATA[55].img = '';
+  CARD_DATA[55].name = '';
+  CARD_DATA[56].img = '';
+  CARD_DATA[56].name = '';
+  CARD_DATA[57].img = '';
+  CARD_DATA[57].name = '';
+  CARD_DATA[58].img = '';
+  CARD_DATA[58].name = '';
+  CARD_DATA[59].img = '';
+  CARD_DATA[59].name = '';
+  CARD_DATA[60].img = '';
+  CARD_DATA[60].name = '';
+  CARD_DATA[61].img = '';
+  CARD_DATA[61].name = '';
+  CARD_DATA[62].img = '';
+  CARD_DATA[62].name = '';
+  CARD_DATA[63].img = '';
+  CARD_DATA[63].name = '';
+  CARD_DATA[64].img = '';
+  CARD_DATA[64].name = '';
+  CARD_DATA[65].img = '';
+  CARD_DATA[65].name = '';
+  CARD_DATA[66].img = '';
+  CARD_DATA[66].name = '';
+  CARD_DATA[67].img = '';
+  CARD_DATA[67].name = '';
+  CARD_DATA[68].img = '';
+  CARD_DATA[68].name = '';
+  CARD_DATA[69].img = '';
+  CARD_DATA[69].name = '';
+  CARD_DATA[70].img = '';
+  CARD_DATA[70].name = '';
+  CARD_DATA[71].img = '';
+  CARD_DATA[71].name = '';
+  CARD_DATA[72].img = '';
+  CARD_DATA[72].name = '';
+  CARD_DATA[73].img = '';
+  CARD_DATA[73].name = '';
+  CARD_DATA[74].img = '';
+  CARD_DATA[74].name = '';
+  CARD_DATA[75].img = '';
+  CARD_DATA[75].name = '';
+  CARD_DATA[76].img = '';
+  CARD_DATA[76].name = '';
+  CARD_DATA[77].img = '';
+  CARD_DATA[77].name = '';
+  CARD_DATA[78].img = '';
+  CARD_DATA[78].name = '';
+  CARD_DATA[79].img = '';
+  CARD_DATA[79].name = '';
+  CARD_DATA[80].img = '';
+  CARD_DATA[80].name = '';
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

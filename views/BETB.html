@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BETB</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="../index.html">简中卡表</a>
+    </div>
+  </header>
+
+  <main class="container table-wrap">
+    <div class="panel">
+      <header class="panel-head">
+        <div>
+          <h1 id="page-title">勇无止尽</h1>
+          <p class="small">卡图来自b站动态</p>
+        </div>
+        <div class="panel-tools">
+          <button id="toggle-mode" class="action-btn">显示全部</button>
+          <div class="paging">
+            <button id="prev-page" class="action-btn">上一页</button>
+            <span id="page-info" class="small"></span>
+            <button id="next-page" class="action-btn">下一页</button>
+          </div>
+          <input id="search-input" placeholder="搜索卡名或编号" aria-label="搜索">
+        </div>
+      </header>
+      <div class="table-container">
+        <div class="data-grid" id="data-grid" role="grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">©2026 镜饼蛙</div>
+  </footer>
+  <script>
+  window.CARD_DATA = Array.from({ length: 163 }, (_, i) => ({
+    id: i + 1,
+    name: String(i + 1).padStart(3, '0'),
+    desc: String(i + 1).padStart(3, '0'),
+    img: 'assets/images/null.png'
+  }));
+  CARD_DATA[0].img = '';
+  CARD_DATA[0].name = '';
+  CARD_DATA[1].img = '';
+  CARD_DATA[1].name = '';
+  CARD_DATA[2].img = '';
+  CARD_DATA[2].name = '';
+  CARD_DATA[3].img = '';
+  CARD_DATA[3].name = '';
+  CARD_DATA[4].img = '';
+  CARD_DATA[4].name = '';
+  CARD_DATA[5].img = '';
+  CARD_DATA[5].name = '';
+  CARD_DATA[6].img = '';
+  CARD_DATA[6].name = '';
+  CARD_DATA[7].img = '';
+  CARD_DATA[7].name = '';
+  CARD_DATA[8].img = '';
+  CARD_DATA[8].name = '';
+  CARD_DATA[9].img = '';
+  CARD_DATA[9].name = '';
+  CARD_DATA[10].img = '';
+  CARD_DATA[10].name = '';
+  CARD_DATA[11].img = '';
+  CARD_DATA[11].name = '';
+  CARD_DATA[12].img = '';
+  CARD_DATA[12].name = '';
+  CARD_DATA[13].img = '';
+  CARD_DATA[13].name = '';
+  CARD_DATA[14].img = '';
+  CARD_DATA[14].name = '';
+  CARD_DATA[15].img = '';
+  CARD_DATA[15].name = '';
+  CARD_DATA[16].img = '';
+  CARD_DATA[16].name = '';
+  CARD_DATA[17].img = '';
+  CARD_DATA[17].name = '';
+  CARD_DATA[18].img = '';
+  CARD_DATA[18].name = '';
+  CARD_DATA[19].img = '';
+  CARD_DATA[19].name = '';
+  CARD_DATA[20].img = '';
+  CARD_DATA[20].name = '';
+  CARD_DATA[21].img = '';
+  CARD_DATA[21].name = '';
+  CARD_DATA[22].img = '';
+  CARD_DATA[22].name = '';
+  CARD_DATA[23].img = '';
+  CARD_DATA[23].name = '';
+  CARD_DATA[24].img = '';
+  CARD_DATA[24].name = '';
+  CARD_DATA[25].img = 'https://i1.hdslb.com/bfs/new_dyn/0ce3182d30d5414f527fd144d74f94a0519200091.jpg';
+  CARD_DATA[25].name = '团结之凶魔龙 黑恶魔龙';
+  CARD_DATA[26].img = '';
+  CARD_DATA[26].name = '';
+  CARD_DATA[27].img = 'https://i1.hdslb.com/bfs/new_dyn/f3a3874f1556b7b153a78ec678024c1c519200091.jpg';
+  CARD_DATA[27].name = '精灵世妃 多里雅德';
+  CARD_DATA[28].img = '';
+  CARD_DATA[28].name = '';
+  CARD_DATA[29].img = '';
+  CARD_DATA[29].name = '';
+  CARD_DATA[30].img = '';
+  CARD_DATA[30].name = '';
+  CARD_DATA[31].img = '';
+  CARD_DATA[31].name = '';
+  CARD_DATA[32].img = '';
+  CARD_DATA[32].name = '';
+  CARD_DATA[33].img = '';
+  CARD_DATA[33].name = '';
+  CARD_DATA[34].img = '';
+  CARD_DATA[34].name = '';
+  CARD_DATA[35].img = '';
+  CARD_DATA[35].name = '';
+  CARD_DATA[36].img = '';
+  CARD_DATA[36].name = '';
+  CARD_DATA[37].img = '';
+  CARD_DATA[37].name = '';
+  CARD_DATA[38].img = '';
+  CARD_DATA[38].name = '';
+  CARD_DATA[39].img = '';
+  CARD_DATA[39].name = '';
+  CARD_DATA[40].img = '';
+  CARD_DATA[40].name = '';
+  CARD_DATA[41].img = '';
+  CARD_DATA[41].name = '';
+  CARD_DATA[42].img = '';
+  CARD_DATA[42].name = '';
+  CARD_DATA[43].img = '';
+  CARD_DATA[43].name = '';
+  CARD_DATA[44].img = '';
+  CARD_DATA[44].name = '';
+  CARD_DATA[45].img = '';
+  CARD_DATA[45].name = '';
+  CARD_DATA[46].img = '';
+  CARD_DATA[46].name = '';
+  CARD_DATA[47].img = '';
+  CARD_DATA[47].name = '';
+  CARD_DATA[48].img = '';
+  CARD_DATA[48].name = '';
+  CARD_DATA[49].img = '';
+  CARD_DATA[49].name = '';
+  CARD_DATA[50].img = '';
+  CARD_DATA[50].name = '';
+  CARD_DATA[51].img = '';
+  CARD_DATA[51].name = '';
+  CARD_DATA[52].img = '';
+  CARD_DATA[52].name = '';
+  CARD_DATA[53].img = '';
+  CARD_DATA[53].name = '';
+  CARD_DATA[54].img = '';
+  CARD_DATA[54].name = '';
+  CARD_DATA[55].img = '';
+  CARD_DATA[55].name = '';
+  CARD_DATA[56].img = '';
+  CARD_DATA[56].name = '';
+  CARD_DATA[57].img = '';
+  CARD_DATA[57].name = '';
+  CARD_DATA[58].img = '';
+  CARD_DATA[58].name = '';
+  CARD_DATA[59].img = '';
+  CARD_DATA[59].name = '';
+  CARD_DATA[60].img = '';
+  CARD_DATA[60].name = '';
+  CARD_DATA[61].img = '';
+  CARD_DATA[61].name = '';
+  CARD_DATA[62].img = '';
+  CARD_DATA[62].name = '';
+  CARD_DATA[63].img = 'https://i1.hdslb.com/bfs/new_dyn/91120a24987966c7f3492737f4f0f7a6519200091.jpg';
+  CARD_DATA[63].name = '魔法效果之剑';
+  CARD_DATA[64].img = '';
+  CARD_DATA[64].name = '';
+  CARD_DATA[65].img = '';
+  CARD_DATA[65].name = '';
+  CARD_DATA[66].img = '';
+  CARD_DATA[66].name = '';
+  CARD_DATA[67].img = '';
+  CARD_DATA[67].name = '';
+  CARD_DATA[68].img = '';
+  CARD_DATA[68].name = '';
+  CARD_DATA[69].img = '';
+  CARD_DATA[69].name = '';
+  CARD_DATA[70].img = '';
+  CARD_DATA[70].name = '';
+  CARD_DATA[71].img = '';
+  CARD_DATA[71].name = '';
+  CARD_DATA[72].img = '';
+  CARD_DATA[72].name = '';
+  CARD_DATA[73].img = '';
+  CARD_DATA[73].name = '';
+  CARD_DATA[74].img = '';
+  CARD_DATA[74].name = '';
+  CARD_DATA[75].img = '';
+  CARD_DATA[75].name = '';
+  CARD_DATA[76].img = '';
+  CARD_DATA[76].name = '';
+  CARD_DATA[77].img = '';
+  CARD_DATA[77].name = '';
+  CARD_DATA[78].img = '';
+  CARD_DATA[78].name = '';
+  CARD_DATA[79].img = '';
+  CARD_DATA[79].name = '';
+  CARD_DATA[80].img = 'https://i1.hdslb.com/bfs/new_dyn/101f528289d0f6d923364d897c02ddc9519200091.jpg';
+  CARD_DATA[80].name = '百岁龙';
+  CARD_DATA[81].img = 'https://i1.hdslb.com/bfs/new_dyn/7360f4ee1e70acf3164bbf0c693df8da519200091.jpg';
+  CARD_DATA[81].name = '黑影·食尸鬼';
+  CARD_DATA[82].img = 'https://i1.hdslb.com/bfs/new_dyn/4d0090d0890ccfb0cda3593ab2d9138a519200091.jpg';
+  CARD_DATA[82].name = '黑影·无定形';
+  CARD_DATA[83].img = 'https://i1.hdslb.com/bfs/new_dyn/147a4d208d74482ae159c3ca68c0607e519200091.jpg';
+  CARD_DATA[83].name = '黑影·鬼火';
+  CARD_DATA[84].img = 'https://i1.hdslb.com/bfs/new_dyn/680bb3efa1a9c41b3455095d01bf2472519200091.jpg';
+  CARD_DATA[84].name = '黑影·鬼魂';
+  CARD_DATA[85].img = 'https://i1.hdslb.com/bfs/new_dyn/2c160721bab4c8e4a7f532f6ddadf0ea519200091.jpg';
+  CARD_DATA[85].name = '亚特兰蒂斯的战士';
+  CARD_DATA[86].img = 'http://i1.hdslb.com/bfs/new_dyn/0204a406c8ab8306248c05735528a85d519200091.jpg';
+  CARD_DATA[86].name = '光幻兽 坎德拉特';
+  CARD_DATA[87].img = '';
+  CARD_DATA[87].name = '';
+  CARD_DATA[88].img = 'https://i1.hdslb.com/bfs/new_dyn/61a2c54ba9550a63951f39b92e443baa519200091.jpg';
+  CARD_DATA[88].name = '海神的巫女';
+  CARD_DATA[89].img = 'https://i1.hdslb.com/bfs/new_dyn/f739c28c27935ebb20e42e6d766e14df519200091.jpg';
+  CARD_DATA[89].name = '海神的依代';
+  CARD_DATA[90].img = 'http://i1.hdslb.com/bfs/new_dyn/5dfa1152154263d75a9c1565189cd05d519200091.jpg';
+  CARD_DATA[90].name = '等离子战士 原能';
+  CARD_DATA[91].img = '';
+  CARD_DATA[91].name = '';
+  CARD_DATA[92].img = 'https://i1.hdslb.com/bfs/new_dyn/8cb6d9ccb92d979c81d2856cc0c835ab519200091.jpg';
+  CARD_DATA[92].name = '时间魔导士';
+  CARD_DATA[93].img = 'https://i1.hdslb.com/bfs/new_dyn/f6f29ca6eb476ea44249568464dc54eb519200091.jpg';
+  CARD_DATA[93].name = '传说之都 亚特兰蒂斯';
+  CARD_DATA[94].img = 'https://i1.hdslb.com/bfs/new_dyn/99bf9997ed24f38139e40722a20ef376519200091.jpg';
+  CARD_DATA[94].name = '利维坦的愤怒';
+  CARD_DATA[95].img = 'https://i1.hdslb.com/bfs/new_dyn/2175c16531bd6e51f5ada92b334f81de519200091.jpg';
+  CARD_DATA[95].name = '利维坦的激昂';
+  CARD_DATA[96].img = 'https://i1.hdslb.com/bfs/new_dyn/7437d9f724130d39440af3078c18a8d4519200091.jpg';
+  CARD_DATA[96].name = '鱼群探知机';
+  CARD_DATA[97].img = 'https://i1.hdslb.com/bfs/new_dyn/bcbedaf7a5839064e2b5b29af5f5ddf9519200091.jpg';
+  CARD_DATA[97].name = '潜海奇袭II';
+  CARD_DATA[98].img = 'https://i1.hdslb.com/bfs/new_dyn/f272b940d5d2c4b75c05eb943137c9a1519200091.jpg';
+  CARD_DATA[98].name = 'D-爆破';
+  CARD_DATA[99].img = 'https://i1.hdslb.com/bfs/new_dyn/d63ac4a1f8e8c28e74e2f812b94adbd8519200091.jpg';
+  CARD_DATA[99].name = '潜海奇袭';
+  CARD_DATA[100].img = '';
+  CARD_DATA[100].name = '';
+  CARD_DATA[101].img = '';
+  CARD_DATA[101].name = '';
+  CARD_DATA[102].img = '';
+  CARD_DATA[102].name = '';
+  CARD_DATA[103].img = '';
+  CARD_DATA[103].name = '';
+  CARD_DATA[104].img = '';
+  CARD_DATA[104].name = '';
+  CARD_DATA[105].img = '';
+  CARD_DATA[105].name = '';
+  CARD_DATA[106].img = '';
+  CARD_DATA[106].name = '';
+  CARD_DATA[107].img = '';
+  CARD_DATA[107].name = '';
+  CARD_DATA[108].img = '';
+  CARD_DATA[108].name = '';
+  CARD_DATA[109].img = '';
+  CARD_DATA[109].name = '';
+  CARD_DATA[110].img = '';
+  CARD_DATA[110].name = '';
+  CARD_DATA[111].img = '';
+  CARD_DATA[111].name = '';
+  CARD_DATA[112].img = '';
+  CARD_DATA[112].name = '';
+  CARD_DATA[113].img = '';
+  CARD_DATA[113].name = '';
+  CARD_DATA[114].img = '';
+  CARD_DATA[114].name = '';
+  CARD_DATA[115].img = '';
+  CARD_DATA[115].name = '';
+  CARD_DATA[116].img = '';
+  CARD_DATA[116].name = '';
+  CARD_DATA[117].img = '';
+  CARD_DATA[117].name = '';
+  CARD_DATA[118].img = '';
+  CARD_DATA[118].name = '';
+  CARD_DATA[119].img = '';
+  CARD_DATA[119].name = '';
+  CARD_DATA[120].img = '';
+  CARD_DATA[120].name = '';
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
