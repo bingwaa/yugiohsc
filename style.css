@@ -55,4 +55,10 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .cell-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text);font-weight:700;font-size:.95rem;text-shadow:0 2px 6px rgba(0,0,0,.12);pointer-events:none;z-index:1}
 .empty{grid-column:1/-1;padding:48px 0;text-align:center;color:var(--muted)}
 .paging{display:flex;gap:12px;align-items:center}
+
+/* ---------- 移动端：四列显示 ---------- */
+@media (max-width:640px){
+  .data-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:auto;gap:var(--gap)}
+  .cell{width:100%;height:auto;aspect-ratio:59/86}
+}
 .small{font-size:.9rem;color:var(--muted)}
