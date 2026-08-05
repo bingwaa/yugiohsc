@@ -48,6 +48,9 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .action-btn{background:transparent;border:1px solid var(--border);padding:6px 10px;border-radius:6px;color:var(--primary);text-decoration:none;font-size:.9rem;cursor:pointer}
 .action-btn:hover{border-color:var(--primary)}
 .action-btn:disabled{opacity:.4;cursor:default}
+.action-btn.exporting{position:relative;overflow:hidden;pointer-events:none;min-width:72px;opacity:1}
+.action-btn.exporting .bar-fill{position:absolute;inset:0;background:var(--primary);opacity:.22;transform-origin:left;transition:transform .15s ease}
+.action-btn.exporting .bar-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:.9rem}
 .table-container{padding:16px}
 .data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(var(--cell-w),var(--cell-w)));grid-auto-rows:var(--cell-h);gap:var(--gap);justify-content:start}
 .cell{width:var(--cell-w);height:var(--cell-h);border-radius:6px;overflow:hidden;position:relative;border:1px solid var(--border);background:var(--bg)}
