@@ -20,6 +20,10 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .site-header{background:var(--card);border-bottom:1px solid var(--border)}
 .site-header .container{display:flex;align-items:center;justify-content:space-between;padding:16px 20px}
 .logo{font-weight:700;color:var(--primary);text-decoration:none;font-size:1.1rem}
+.header-links{display:flex;align-items:center;gap:14px}
+.github-link,.qq-link{display:flex;align-items:center;color:var(--muted);text-decoration:none;transition:color .2s}
+.github-link:hover,.qq-link:hover{color:var(--text)}
+.github-link svg,.qq-link svg{width:22px;height:22px;display:block}
 
 .site-footer{padding:18px 0;color:var(--muted);text-align:center}
 
