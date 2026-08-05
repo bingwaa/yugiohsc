@@ -1,5 +1,5 @@
 (() => {
-  const PAGES = ['BETB', 'UT01'];
+  const PAGES = ['BETB', 'UT01', 'SGP1'];
   const KEY = 'yugioh_widget_positions';
   const PAD = 24;    // 卡片距左右边缘的最小间距
   const TOP = 96;    // 顶部为页头与说明文字预留的空间
