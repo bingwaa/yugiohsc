@@ -123,19 +123,19 @@
       ctx.strokeRect(SCALE / 2, SCALE / 2, W - SCALE, gy - SCALE);
       if (qr) {
         const qrMaxH = gy - pad * 2;
-        const text = '欢迎各位大佬加群~';
+        const text = '欢迎各位大佬加群';
         const size = qrMaxH / text.length; /* 按高度估算字号，使整列与 qr 齐高 */
-        const qrMaxW = W - pad - size - pad; /* 右侧留出竖向文字列与间距 */
+        const qrMaxW = W - pad - size - pad; /* 左侧留出竖向文字列与间距 */
         const qrS = Math.min(qrMaxW / qr.naturalWidth, qrMaxH / qr.naturalHeight);
         const qrW = qr.naturalWidth * qrS;
         const qrH = qr.naturalHeight * qrS;
-        const qrX = W - qrW - pad - size - pad;
+        const qrX = W - qrW - pad - 10 * SCALE;
         const qrY = pad + (qrMaxH - qrH) / 2;
         ctx.drawImage(qr, qrX, qrY, qrW, qrH);
 
-        /* 二维码右侧竖向文字，整列与 qr 齐高 */
+        /* 二维码左侧竖向文字，整列与 qr 齐高 */
         const s = qrH / text.length;
-        const colX = qrX + qrW + pad + s / 2;
+        const colX = qrX - pad - s / 2;
         ctx.fillStyle = '#fff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -146,10 +146,13 @@
       ctx.textAlign = 'left';
       ctx.fillStyle = '#fff';
       ctx.font = `700 ${26 * SCALE}px Inter,system-ui,sans-serif`;
-      ctx.fillText(`${title} - ${items.length} 张`, 24 * SCALE, gy / 2 - 32 * SCALE);
+      ctx.fillText(`${title} - ${items.length} 张`, 24 * SCALE, gy / 2 - 47 * SCALE);
       ctx.fillStyle = '#9aa0a6';
-      ctx.font = `400 ${20 * SCALE}px Inter,system-ui,sans-serif`;
-      ctx.fillText(timeStr, 24 * SCALE, gy / 2 + 32 * SCALE);
+      ctx.font = `italic 400 ${20 * SCALE}px Inter,system-ui,sans-serif`;
+      ctx.fillText(timeStr, 24 * SCALE, gy / 2 + 17 * SCALE);
+      /* 时间栏下方：站点行，样式与时间栏一致 */
+      const siteY = gy / 2 + 47 * SCALE;
+      ctx.fillText('制表网站 - bingwaa.xyz 网站看表更高清', 24 * SCALE, siteY);
 
       frames.forEach(({ item, img }, i) => {
         const x = (i % cols) * (CELL_W + GAP) * SCALE;

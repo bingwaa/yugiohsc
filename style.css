@@ -1,7 +1,7 @@
 :root{
   --bg:#1f1f1f;
   --text:#fff;
-  --primary:#0f6efd;
+  --primary:#FAD1D6;
   --muted:#9aa0a6;
   --border:rgba(255,255,255,.06);
   --card:#131313;
@@ -44,7 +44,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .panel-head p{margin:4px 0 0}
 .panel-tools{display:flex;gap:10px;align-items:center}
 .panel-tools input{padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text)}
-.panel-tools input:focus{outline:2px solid rgba(15,110,253,.4);border-color:transparent}
+.panel-tools input:focus{outline:2px solid rgba(250,209,214,.4);border-color:transparent}
 .action-btn{background:transparent;border:1px solid var(--border);padding:6px 10px;border-radius:6px;color:var(--primary);text-decoration:none;font-size:.9rem;cursor:pointer}
 .action-btn:hover{border-color:var(--primary)}
 .action-btn:disabled{opacity:.4;cursor:default}
