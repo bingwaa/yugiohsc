@@ -58,11 +58,12 @@
   if (exportBtn) exportBtn.addEventListener('click', () => {
     const items = data;
     if (!items.length) return;
-    const CELL_W = 118, CELL_H = 172, GAP = 0, COLS = 10, SCALE = 2;
+    const CELL_W = 118, CELL_H = 172, HEADER_H = 172, GAP = 0, COLS = 10, SCALE = 2.5;
     const cols = Math.min(COLS, items.length);
     const rows = Math.ceil(items.length / cols);
     const W = cols * CELL_W * SCALE;
-    const H = rows * CELL_H * SCALE;
+    const gy = HEADER_H * SCALE; /* 顶部标题栏高度，与格子等高 */
+    const H = gy + rows * CELL_H * SCALE;
 
     const label = exportBtn.textContent;
     exportBtn.classList.add('exporting');
@@ -82,25 +83,77 @@
 
     /* 逐张完成时更新进度；跨域不支持的图降级为无图，避免污染 canvas */
     let done = 0;
+    const total = items.length + 1; /* 图片数含二维码 */
+    const bump = () => { done++; update(done / total); };
     const load = item => new Promise(res => {
-      if (!item.img) { done++; update(done / items.length); return res({ item, img: null }); }
+      if (!item.img) { bump(); return res({ item, img: null }); }
       const img = new Image();
       img.crossOrigin = 'anonymous';
-      const finish = imgObj => { done++; update(done / items.length); res({ item, img: imgObj }); };
+      const finish = imgObj => { clearTimeout(t); bump(); res({ item, img: imgObj }); };
+      const t = setTimeout(() => finish(null), 10000); /* 超时按无图处理，避免挂起导致无法导出 */
       img.onload = () => finish(img);
       img.onerror = () => finish(null);
       img.src = item.img;
     });
+    const loadQr = () => new Promise(res => {
+      const img = new Image();
+      const finish = imgObj => { clearTimeout(t); bump(); res(imgObj); };
+      const t = setTimeout(() => finish(null), 10000);
+      img.onload = () => finish(img);
+      img.onerror = () => finish(null);
+      img.src = 'assets/images/qrcode.jpg';
+    });
 
-    Promise.all(items.map(load)).then(frames => {
+    Promise.all([loadQr(), ...items.map(load)]).then(([qr, ...frames]) => {
       const canvas = document.createElement('canvas');
       canvas.width = W;
       canvas.height = H;
       const ctx = canvas.getContext('2d');
 
+      /* 顶部标题栏：深色背景 + 1px 白框，左侧标题与导出时间，右侧二维码 */
+      const title = document.querySelector('#page-title')?.textContent || document.title;
+      const now = new Date();
+      const pad2 = n => String(n).padStart(2, '0');
+      const timeStr = `制表时间 - ${now.getFullYear()}/${pad2(now.getMonth() + 1)}/${pad2(now.getDate())} ${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
+      const pad = 8 * SCALE;
+      ctx.fillStyle = '#1f1f1f';
+      ctx.fillRect(0, 0, W, gy);
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = SCALE;
+      ctx.strokeRect(SCALE / 2, SCALE / 2, W - SCALE, gy - SCALE);
+      if (qr) {
+        const qrMaxH = gy - pad * 2;
+        const text = '欢迎各位大佬加群~';
+        const size = qrMaxH / text.length; /* 按高度估算字号，使整列与 qr 齐高 */
+        const qrMaxW = W - pad - size - pad; /* 右侧留出竖向文字列与间距 */
+        const qrS = Math.min(qrMaxW / qr.naturalWidth, qrMaxH / qr.naturalHeight);
+        const qrW = qr.naturalWidth * qrS;
+        const qrH = qr.naturalHeight * qrS;
+        const qrX = W - qrW - pad - size - pad;
+        const qrY = pad + (qrMaxH - qrH) / 2;
+        ctx.drawImage(qr, qrX, qrY, qrW, qrH);
+
+        /* 二维码右侧竖向文字，整列与 qr 齐高 */
+        const s = qrH / text.length;
+        const colX = qrX + qrW + pad + s / 2;
+        ctx.fillStyle = '#fff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = `400 ${s}px Inter,system-ui,sans-serif`;
+        Array.from(text).forEach((ch, i) => ctx.fillText(ch, colX, qrY + i * s + s / 2));
+      }
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#fff';
+      ctx.font = `700 ${26 * SCALE}px Inter,system-ui,sans-serif`;
+      ctx.fillText(`${title} - ${items.length} 张`, 24 * SCALE, gy / 2 - 32 * SCALE);
+      ctx.fillStyle = '#9aa0a6';
+      ctx.font = `400 ${20 * SCALE}px Inter,system-ui,sans-serif`;
+      ctx.fillText(timeStr, 24 * SCALE, gy / 2 + 32 * SCALE);
+
       frames.forEach(({ item, img }, i) => {
         const x = (i % cols) * (CELL_W + GAP) * SCALE;
-        const y = Math.floor(i / cols) * (CELL_H + GAP) * SCALE;
+        const y = gy + Math.floor(i / cols) * (CELL_H + GAP) * SCALE;
         ctx.fillStyle = '#1f1f1f';
         ctx.fillRect(x, y, CELL_W * SCALE, CELL_H * SCALE);
         if (img) {
