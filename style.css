@@ -10,6 +10,7 @@
   --cell-h:172px;
   --gap:8px;
   --header-h:54px;
+  --widget-h:137px; /* 页面列表高度：3 条 × 45px + 2px 边框 */
   font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
 }
 
@@ -26,7 +27,8 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .github-link:hover,.qq-link:hover{color:var(--text)}
 .github-link svg,.qq-link svg{width:22px;height:22px;display:block}
 
-.site-footer{padding:18px 0;color:var(--muted);text-align:center}
+.site-footer{padding:18px 0;color:var(--muted);text-align:center;position:relative;z-index:20;background:var(--bg);margin-top:calc(var(--widget-h) + 32px)}
+.table-wrap ~ .site-footer{margin-top:0;padding-top:16px} /* 子页面页脚：距表格 16px */
 
 /* ---------- 首页：公告栏 + 入口 ---------- */
 .announce{
@@ -56,7 +58,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .page-date{margin-left:8px;white-space:nowrap}
 
 /* ---------- 子页面共用样式 ---------- */
-.table-wrap{padding:28px 20px}
+.table-wrap{padding:28px 20px 0}
 .panel{background:var(--card);border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,.18);overflow:hidden}
 .panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 20px;border-bottom:1px solid var(--border)}
 .panel-head h1{margin:0;font-size:1.1rem}
@@ -94,5 +96,6 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
   #widget-area{position:static;margin:20px 16px 0;padding:0}
   .panel-tools{flex-wrap:wrap}
   #search-input{flex:1 1 100%}
+  .site-footer{margin-top:0}
 }
 .small{font-size:.9rem;color:var(--muted)}
