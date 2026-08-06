@@ -27,14 +27,32 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 
 .site-footer{padding:18px 0;color:var(--muted);text-align:center}
 
-/* ---------- 首页：可拖拽卡片入口 ---------- */
-.intro{color:var(--muted);text-align:center;margin:32px 0 8px}
-.draggable-widget{position:absolute;width:180px;min-height:88px;background:var(--card);color:var(--text);border-radius:20px;box-shadow:0 18px 32px rgba(15,23,42,.18);display:flex;align-items:center;justify-content:center;cursor:grab;user-select:none;touch-action:none;z-index:10;text-decoration:none;font-weight:700;padding:20px 16px;text-align:center;line-height:1.2;transition:transform .2s ease,box-shadow .2s ease}
-.draggable-widget:hover{transform:translateY(-2px)}
-.draggable-widget.dragging{cursor:grabbing;transform:none;box-shadow:0 24px 38px rgba(15,23,42,.24)}
-@media (max-width:640px){
-  .draggable-widget{position:relative;top:auto;left:auto;transform:none;margin:16px auto 0;width:min(90%,240px);touch-action:auto}
+/* ---------- 首页：公告栏 + 入口 ---------- */
+.announce{
+  position:fixed;
+  top:64px;
+  right:16px;
+  width:210px;
+  z-index:10;
+  background:var(--card);
+  border:1px solid var(--primary);
+  border-radius:10px;
+  box-shadow:0 8px 30px rgba(15,23,42,.18);
+  padding:12px 16px;
+  font-size:14px;
+  color:var(--primary);
+  transition:box-shadow .2s,transform .2s;
 }
+.announce p{margin:0;line-height:1.6}
+.announce p + p{margin-top:4px}
+.announce:hover{transform:translateY(-2px)}
+#widget-area{position:fixed;top:64px;left:16px;right:calc(16px + 210px + 16px);border:1px solid var(--primary);border-radius:10px;overflow:hidden}
+.page-list{background:var(--card);border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,.18);overflow:hidden}
+.page-link{display:flex;flex-wrap:wrap;align-items:baseline;text-align:left;font-size:14px;font-weight:400;color:var(--text);text-decoration:none;padding:12px 16px;line-height:1.5;transition:color .2s}
+.page-link:hover{color:var(--primary)}
+.page-link + .page-link{border-top:1px solid var(--primary)}
+.page-title{min-width:190px;white-space:nowrap}
+.page-date{margin-left:8px;white-space:nowrap}
 
 /* ---------- 子页面共用样式 ---------- */
 .table-wrap{padding:28px 20px}
@@ -67,5 +85,11 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 @media (max-width:640px){
   .data-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:auto;gap:var(--gap)}
   .cell{width:100%;height:auto;aspect-ratio:59/86}
+}
+
+/* ---------- 窄屏：公告栏与入口改为流式，左右各留16px ---------- */
+@media (max-width:768px){
+  .announce{position:static;width:auto;margin:20px 16px 0;text-align:center}
+  #widget-area{position:static;margin:20px 16px 0;padding:0}
 }
 .small{font-size:.9rem;color:var(--muted)}
