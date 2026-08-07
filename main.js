@@ -46,7 +46,6 @@
   fetch('updates.json')
     .then(r => r.json())
     .then(map => Promise.all(PAGES.map(p => loadPage(p, map))))
-    .then(render)
     .catch(() => Promise.all(PAGES.map(p => loadPage(p, {}))))
     .then(render);
 })();
