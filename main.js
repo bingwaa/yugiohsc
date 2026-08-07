@@ -24,18 +24,29 @@
     return null;
   };
 
+  /* 从子页面 HTML 解析 p.small 内容，用于主页面发售日展示 */
+  const smallOf = html => { const m = String(html).match(/<p class="small">([^<]*)<\/p>/); return m ? m[1].trim() : ''; };
+  const loadPage = (p, map) =>
+    fetch(p.file)
+      .then(r => r.text())
+      .then(html => ({ ...p, time: map[p.file] ? new Date(map[p.file]) : null, released: smallOf(html) }))
+      .catch(() => ({ ...p, time: map[p.file] ? new Date(map[p.file]) : null, released: '' }));
+
   const render = rows => {
     rows.sort((a, b) => (b.time || 0) - (a.time || 0)); /* 新更新的排在上头 */
     area.innerHTML = '<div class="page-list">' + rows.map(p => {
       const relTxt = p.time ? rel(p.time) : null;
       const date = relTxt ? `<span class="page-date">- 更新于${esc(relTxt)} ${esc(fmt(p.time))}</span>` : '';
-      return `<a class="page-link" href="${esc(p.file)}"><span class="page-title">${esc(p.code)}：${esc(p.title)}</span>${date}</a>`;
+      const released = p.released ? `<span class="page-releasedate">- ${esc(p.released)}</span>` : '';
+      return `<a class="page-link" href="${esc(p.file)}"><span class="page-title">${esc(p.code)}：${esc(p.title)}</span>${released}${date}</a>`;
     }).join('') + '</div>';
   };
 
   /* updates.json 由 scripts/gen-updates.js 生成并随仓库提交；缺失时回退为不带日期 */
   fetch('updates.json')
     .then(r => r.json())
-    .then(map => render(PAGES.map(p => ({ ...p, time: map[p.file] ? new Date(map[p.file]) : null }))))
-    .catch(() => render(PAGES.map(p => ({ ...p, time: null }))));
+    .then(map => Promise.all(PAGES.map(p => loadPage(p, map))))
+    .then(render)
+    .catch(() => Promise.all(PAGES.map(p => loadPage(p, {}))))
+    .then(render);
 })();

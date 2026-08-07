@@ -51,11 +51,12 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .announce:hover{transform:translateY(-2px)}
 #widget-area{position:fixed;top:calc(var(--header-h) + 16px);left:16px;right:calc(16px + 210px + 16px);border:1px solid var(--primary);border-radius:10px;overflow:hidden}
 .page-list{background:var(--card);border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,.18);overflow:hidden}
-.page-link{display:flex;flex-wrap:wrap;align-items:baseline;text-align:left;font-size:14px;font-weight:400;color:var(--text);text-decoration:none;padding:12px 16px;line-height:1.5;transition:color .2s}
+.page-link{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;text-align:left;font-size:14px;font-weight:400;color:var(--text);text-decoration:none;padding:12px 16px;line-height:1.5;transition:color .2s}
 .page-link:hover{color:var(--primary)}
 .page-link + .page-link{border-top:1px solid var(--primary)}
 .page-title{min-width:190px;white-space:nowrap}
-.page-date{margin-left:8px;white-space:nowrap}
+.page-releasedate{min-width:190px;white-space:nowrap}
+.page-date{min-width:190px;white-space:nowrap}
 
 /* ---------- 子页面共用样式 ---------- */
 .table-wrap{padding:28px 20px 0}
