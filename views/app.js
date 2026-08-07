@@ -112,6 +112,7 @@
 
       /* 顶部标题栏：深色背景 + 1px 白框，左侧标题与导出时间，右侧二维码 */
       const title = document.querySelector('#page-title')?.textContent || document.title;
+      const released = document.querySelector('.panel-head p.small')?.textContent?.trim() || '';
       const now = new Date();
       const pad2 = n => String(n).padStart(2, '0');
       const timeStr = `制表时间 - ${now.getFullYear()}/${pad2(now.getMonth() + 1)}/${pad2(now.getDate())} ${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
@@ -149,6 +150,7 @@
       ctx.fillText(`${title} - ${items.length} 张`, 24 * SCALE, gy / 2 - 47 * SCALE);
       ctx.fillStyle = '#9aa0a6';
       ctx.font = `italic 400 ${20 * SCALE}px Inter,system-ui,sans-serif`;
+      if (released) ctx.fillText(released, 24 * SCALE, gy / 2 - 13 * SCALE);
       ctx.fillText(timeStr, 24 * SCALE, gy / 2 + 17 * SCALE);
       /* 时间栏下方：站点行，样式与时间栏一致 */
       const siteY = gy / 2 + 47 * SCALE;
