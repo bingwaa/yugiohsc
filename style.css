@@ -10,7 +10,7 @@
   --cell-h:172px;
   --gap:8px;
   --header-h:54px;
-  --widget-h:137px; /* 页面列表高度：3 条 × 45px + 2px 边框 */
+  --widget-h:182px; /* 页面列表高度默认值；main.js 渲染后按实际高度覆盖，页脚间距恒为 16px */
   font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
 }
 

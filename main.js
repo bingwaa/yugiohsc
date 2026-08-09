@@ -3,6 +3,7 @@
     { code: 'BETB', file: 'views/BETB.html', title: '勇无止尽+补缀包' },
     { code: 'SGP1', file: 'views/SGP1.html', title: '时光飞越包' },
     { code: 'UT01', file: 'views/UT01.html', title: '实战精选' },
+    { code: 'DBGV', file: 'views/DBGV.html', title: '荣光胜利者' },
   ];
   const DAY = 86400000;
 
@@ -32,6 +33,12 @@
       .then(html => ({ ...p, time: map[p.file] ? new Date(map[p.file]) : null, released: smallOf(html) }))
       .catch(() => ({ ...p, time: map[p.file] ? new Date(map[p.file]) : null, released: '' }));
 
+  /* 按 widget-area 实际高度更新 --widget-h，保证页脚与列表间距恒为 16px；页面数变化无需再改样式常量 */
+  const syncWidgetH = () => {
+    const h = area.offsetHeight;
+    if (h > 0) document.documentElement.style.setProperty('--widget-h', `${h}px`);
+  };
+
   const render = rows => {
     rows.sort((a, b) => (b.time || 0) - (a.time || 0)); /* 新更新的排在上头 */
     area.innerHTML = '<div class="page-list">' + rows.map(p => {
@@ -40,6 +47,7 @@
       const released = p.released ? `<span class="page-releasedate">- ${esc(p.released)}</span>` : '';
       return `<a class="page-link" href="${esc(p.file)}"><span class="page-title">${esc(p.code)}：${esc(p.title)}</span>${released}${date}</a>`;
     }).join('') + '</div>';
+    syncWidgetH();
   };
 
   /* updates.json 由 scripts/gen-updates.js 生成并随仓库提交；缺失时回退为不带日期 */
@@ -48,4 +56,6 @@
     .then(map => Promise.all(PAGES.map(p => loadPage(p, map))))
     .catch(() => Promise.all(PAGES.map(p => loadPage(p, {}))))
     .then(render);
+
+  window.addEventListener('resize', syncWidgetH); /* 窄屏换行会改变列表高度 */
 })();
