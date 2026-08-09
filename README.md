@@ -2,4 +2,4 @@
 
 网站：[bingwaa.xyz](https://bingwaa.xyz)
 
-QQ群：192746903
+交流反馈QQ群：192746903
