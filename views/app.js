@@ -87,13 +87,18 @@
     const bump = () => { done++; update(done / total); };
     const load = item => new Promise(res => {
       if (!item.img) { bump(); return res({ item, img: null }); }
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      const finish = imgObj => { clearTimeout(t); bump(); res({ item, img: imgObj }); };
-      const t = setTimeout(() => finish(null), 10000); /* 超时按无图处理，避免挂起导致无法导出 */
-      img.onload = () => finish(img);
-      img.onerror = () => finish(null);
-      img.src = item.img;
+      const proxy = url => 'https://images.weserv.nl/?url=' + encodeURIComponent(url); /* 无 CORS 头的 CDN 经代理取图 */
+      let settled = false;
+      const finish = imgObj => { if (settled) return; settled = true; clearTimeout(t); bump(); res({ item, img: imgObj }); };
+      const t = setTimeout(() => finish(null), 15000); /* 直连加代理两次尝试的合计超时，超时按无图处理 */
+      const tryLoad = url => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => finish(img);
+        img.onerror = () => { if (url === item.img) tryLoad(proxy(item.img)); else finish(null); }; /* 直连被 CORS 拦截时经代理重试一次 */
+        img.src = url;
+      };
+      tryLoad(item.img);
     });
     const loadQr = () => new Promise(res => {
       const img = new Image();
