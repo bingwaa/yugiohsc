@@ -129,7 +129,7 @@
       ctx.strokeRect(SCALE / 2, SCALE / 2, W - SCALE, gy - SCALE);
       if (qr) {
         const qrMaxH = gy - pad * 2;
-        const text = '欢迎各位大佬加群';
+        const text = '交流反馈群';
         const size = qrMaxH / text.length; /* 按高度估算字号，使整列与 qr 齐高 */
         const qrMaxW = W - pad - size - pad; /* 左侧留出竖向文字列与间距 */
         const qrS = Math.min(qrMaxW / qr.naturalWidth, qrMaxH / qr.naturalHeight);
