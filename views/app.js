@@ -10,7 +10,7 @@
   const PER_PAGE = 40;
 
   /* 导出图右上角二维码与『交流反馈群』显示开关：true 显示，false 隐藏 */
-  const SHOW_QR = false;
+  const SHOW_QR = true;
 
   /* 数据与图片由各 UTxx.html 内联定义（window.CARD_DATA），app.js 只负责渲染 */
   const DATA = window.CARD_DATA || [];
