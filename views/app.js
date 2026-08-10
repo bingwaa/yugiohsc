@@ -9,6 +9,9 @@
   const toggle = document.getElementById('toggle-mode');
   const PER_PAGE = 40;
 
+  /* 导出图右上角二维码与『交流反馈群』显示开关：true 显示，false 隐藏 */
+  const SHOW_QR = false;
+
   /* 数据与图片由各 UTxx.html 内联定义（window.CARD_DATA），app.js 只负责渲染 */
   const DATA = window.CARD_DATA || [];
 
@@ -83,7 +86,7 @@
 
     /* 逐张完成时更新进度；跨域不支持的图降级为无图，避免污染 canvas */
     let done = 0;
-    const total = items.length + 1; /* 图片数含二维码 */
+    const total = items.length + (SHOW_QR ? 1 : 0); /* 图片数，开启时含二维码 */
     const bump = () => { done++; update(done / total); };
     const load = item => new Promise(res => {
       if (!item.img) { bump(); return res({ item, img: null }); }
@@ -109,7 +112,7 @@
       img.src = 'assets/images/qrcode.jpg';
     });
 
-    Promise.all([loadQr(), ...items.map(load)]).then(([qr, ...frames]) => {
+    Promise.all([SHOW_QR ? loadQr() : Promise.resolve(null), ...items.map(load)]).then(([qr, ...frames]) => {
       const canvas = document.createElement('canvas');
       canvas.width = W;
       canvas.height = H;
