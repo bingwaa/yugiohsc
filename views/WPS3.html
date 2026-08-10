@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>WPS3</title>
+  <link rel="icon" type="image/png" href="assets/images/icon16.png">
+  <link rel="stylesheet" href="../style.css?v=3">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="../index.html">简中卡表</a>
+      <div class="header-links">
+        <a class="qq-link" href="https://qm.qq.com/q/MicO5jVS8K" target="_blank" rel="noopener" aria-label="QQ 群">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg>
+        </a>
+        <a class="github-link" href="https://github.com/bingwaa/yugiohsc" target="_blank" rel="noopener" aria-label="GitHub 仓库">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container table-wrap">
+    <div class="panel">
+      <header class="panel-head">
+        <div>
+          <h1 id="page-title">世界先行精选包2026</h1>
+          <p class="small">发售日 2026/07/18</p>
+        </div>
+        <div class="panel-tools">
+          <button id="export-btn" class="action-btn">导出卡表</button>
+          <button id="toggle-mode" class="action-btn">显示全部</button>
+          <div class="paging">
+            <button id="prev-page" class="action-btn">上一页</button>
+            <span id="page-info" class="small"></span>
+            <button id="next-page" class="action-btn">下一页</button>
+          </div>
+          <input id="search-input" placeholder="搜索卡名或编号" aria-label="搜索">
+        </div>
+      </header>
+      <div class="table-container">
+        <div class="data-grid" id="data-grid" role="grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">©2026 镜饼蛙</div>
+  </footer>
+  <script>
+  window.CARD_DATA = Array.from({ length: 120 }, (_, i) => ({
+    id: i + 1,
+    name: String(i + 1).padStart(3, '0'),
+    desc: String(i + 1).padStart(3, '0'),
+    img: 'assets/images/null.png'
+  }));
+  CARD_DATA[0].img = '';
+  CARD_DATA[0].name = '';
+  CARD_DATA[1].img = '';
+  CARD_DATA[1].name = '';
+  CARD_DATA[2].img = '';
+  CARD_DATA[2].name = '';
+  CARD_DATA[3].img = '';
+  CARD_DATA[3].name = '';
+  CARD_DATA[4].img = '';
+  CARD_DATA[4].name = '';
+  CARD_DATA[5].img = '';
+  CARD_DATA[5].name = '';
+  CARD_DATA[6].img = '';
+  CARD_DATA[6].name = '';
+  CARD_DATA[7].img = '';
+  CARD_DATA[7].name = '';
+  CARD_DATA[8].img = '';
+  CARD_DATA[8].name = '';
+  CARD_DATA[9].img = '';
+  CARD_DATA[9].name = '';
+  CARD_DATA[10].img = '';
+  CARD_DATA[10].name = '';
+  CARD_DATA[11].img = '';
+  CARD_DATA[11].name = '';
+  CARD_DATA[12].img = '';
+  CARD_DATA[12].name = '';
+  CARD_DATA[13].img = '';
+  CARD_DATA[13].name = '';
+  CARD_DATA[14].img = '';
+  CARD_DATA[14].name = '';
+  CARD_DATA[15].img = '';
+  CARD_DATA[15].name = '';
+  CARD_DATA[16].img = '';
+  CARD_DATA[16].name = '';
+  CARD_DATA[17].img = '';
+  CARD_DATA[17].name = '';
+  CARD_DATA[18].img = '';
+  CARD_DATA[18].name = '';
+  CARD_DATA[19].img = '';
+  CARD_DATA[19].name = '';
+  CARD_DATA[20].img = '';
+  CARD_DATA[20].name = '';
+  CARD_DATA[21].img = '';
+  CARD_DATA[21].name = '';
+  CARD_DATA[22].img = '';
+  CARD_DATA[22].name = '';
+  CARD_DATA[23].img = '';
+  CARD_DATA[23].name = '';
+  CARD_DATA[24].img = '';
+  CARD_DATA[24].name = '';
+  CARD_DATA[25].img = 'https://i1.hdslb.com/bfs/new_dyn/431d621b3d864f70ac289adc740d75be519200091.jpg';
+  CARD_DATA[25].name = '新世龙 达尼安';
+  CARD_DATA[26].img = 'https://i1.hdslb.com/bfs/new_dyn/2bcc2507cb45dc42b804f97ac24f7684519200091.jpg';
+  CARD_DATA[26].name = 'GMX研究员 塞兰';
+  CARD_DATA[27].img = 'https://i1.hdslb.com/bfs/new_dyn/1c1ba27802035c322b02ffa6f48b6f7d519200091.jpg';
+  CARD_DATA[27].name = 'GMX主任教授 金里奇';
+  CARD_DATA[28].img = 'https://i1.hdslb.com/bfs/new_dyn/ba0135428e7628217969a214bb0e1287519200091.jpg';
+  CARD_DATA[28].name = 'GMX准教授 诺玛';
+  CARD_DATA[29].img = 'https://i1.hdslb.com/bfs/new_dyn/1baf4d1da0402695437efe3f07c9e0eb519200091.jpg';
+  CARD_DATA[29].name = 'GMX同绊者 塞兰迪安';
+  CARD_DATA[30].img = 'https://i1.hdslb.com/bfs/new_dyn/5a0a2bef1e83bf7556ef9a7b3f537f3e519200091.jpg';
+  CARD_DATA[30].name = 'GMX镇压部队 阿普特';
+  CARD_DATA[31].img = 'https://i1.hdslb.com/bfs/new_dyn/331ae8f8e0952e41c51609402245e654519200091.jpg';
+  CARD_DATA[31].name = 'GMX-异特种ALLOS';
+  CARD_DATA[32].img = 'https://i1.hdslb.com/bfs/new_dyn/e3d038bef2553ddad3f9d0d99d268640519200091.jpg';
+  CARD_DATA[32].name = 'GMX-伶盗种VELOX';
+  CARD_DATA[33].img = 'https://i1.hdslb.com/bfs/new_dyn/4401c0d18e0d9bef2ec2e6f624905a61519200091.jpg';
+  CARD_DATA[33].name = 'GMX-混霸种COMPREX';
+  CARD_DATA[34].img = 'https://i1.hdslb.com/bfs/new_dyn/f7a61efcbc1081962579d1e1e27d435a519200091.jpg';
+  CARD_DATA[34].name = '晓世龙 达尼安';
+  CARD_DATA[35].img = 'https://i1.hdslb.com/bfs/new_dyn/7dcb3300de6ab5caa3ec78fbce520999519200091.jpg';
+  CARD_DATA[35].name = '第55次GMX应用实验';
+  CARD_DATA[36].img = 'https://i1.hdslb.com/bfs/new_dyn/f71041d2073eef9030ad4f68b6392558519200091.jpg';
+  CARD_DATA[36].name = '第55次GMX实验报告';
+  CARD_DATA[37].img = 'https://i1.hdslb.com/bfs/new_dyn/9de0717b64d730b72ddbd526e1d2427d519200091.jpg';
+  CARD_DATA[37].name = '旧GMX第5研究所';
+  CARD_DATA[38].img = 'https://i1.hdslb.com/bfs/new_dyn/d9f8f1761e56d60112646bd9106c5476519200091.jpg';
+  CARD_DATA[38].name = '反GMX最终验证';
+  CARD_DATA[39].img = 'https://i1.hdslb.com/bfs/new_dyn/095ef8fe8cd47abf09df36b3d7e90a1d519200091.jpg';
+  CARD_DATA[39].name = '书灵师·极客少年';
+  CARD_DATA[40].img = 'https://i1.hdslb.com/bfs/new_dyn/d7b23a0f9be4bddbb7b18fec0f2d5d0d519200091.jpg';
+  CARD_DATA[40].name = '书灵师·魔法女孩';
+  CARD_DATA[41].img = 'https://i1.hdslb.com/bfs/new_dyn/3ebb1dcc9268368ce43bf54829866f86519200091.jpg';
+  CARD_DATA[41].name = '书灵师·特工';
+  CARD_DATA[42].img = 'https://i1.hdslb.com/bfs/new_dyn/7e31bd88137f72966f3bf8cb3ae1ffd6519200091.jpg';
+  CARD_DATA[42].name = '书灵师·烈火';
+  CARD_DATA[43].img = 'https://i1.hdslb.com/bfs/new_dyn/73b44a4a2a8b18c81cee85f38064b548519200091.jpg';
+  CARD_DATA[43].name = '书灵师·烈火引燃者';
+  CARD_DATA[44].img = 'https://i1.hdslb.com/bfs/new_dyn/5df619aca07c550e9c08ff0c067366fc519200091.jpg';
+  CARD_DATA[44].name = '书灵师·死亡掮客';
+  CARD_DATA[45].img = 'https://i1.hdslb.com/bfs/new_dyn/7cb0b9be4151d17e48fc112d7d2fe502519200091.jpg';
+  CARD_DATA[45].name = '书灵师·神秘女孩';
+  CARD_DATA[46].img = 'https://i1.hdslb.com/bfs/new_dyn/1510938f2453c78703d855f81cd6e9e3519200091.jpg';
+  CARD_DATA[46].name = '书灵师·烈火爆裂';
+  CARD_DATA[47].img = 'https://i1.hdslb.com/bfs/new_dyn/26d9f8cec01c2e48dcfbb910323fe41d519200091.jpg';
+  CARD_DATA[47].name = '书灵师·崛起';
+  CARD_DATA[48].img = 'https://i1.hdslb.com/bfs/new_dyn/51d2981c7e234257db56c914a7d78077519200091.jpg';
+  CARD_DATA[48].name = '书灵师·实体化';
+  CARD_DATA[49].img = 'https://i1.hdslb.com/bfs/new_dyn/1b1b65345524afdd550aa78c42361252519200091.jpg';
+  CARD_DATA[49].name = '书灵师·再崛起';
+  CARD_DATA[50].img = 'https://i1.hdslb.com/bfs/new_dyn/1c175e315805b3c4b9a264f867a34edb519200091.jpg';
+  CARD_DATA[50].name = '书灵师·本源';
+  CARD_DATA[51].img = 'https://i1.hdslb.com/bfs/new_dyn/6f1209dbf37d27181914bbbf4efdc483519200091.jpg';
+  CARD_DATA[51].name = '书灵师·介入';
+  CARD_DATA[52].img = 'https://i1.hdslb.com/bfs/new_dyn/59a957d8420895ca474a7a1f616b28af519200091.jpg';
+  CARD_DATA[52].name = '书灵师·波及';
+  CARD_DATA[53].img = 'https://i1.hdslb.com/bfs/new_dyn/f2ab6bd1480abfc2fb96f0e89a8b7fae519200091.jpg';
+  CARD_DATA[53].name = '书灵师·阻止';
+  CARD_DATA[54].img = 'https://i1.hdslb.com/bfs/new_dyn/03b14c8851928400f66e2f3861be9932519200091.jpg';
+  CARD_DATA[54].name = '伯吉斯吸虫·欧巴宾海蝎';
+  CARD_DATA[55].img = 'https://i1.hdslb.com/bfs/new_dyn/cd1bbdab24fc037754a7be2664ebecb6519200091.jpg';
+  CARD_DATA[55].name = '伯吉斯吸虫·奇虾';
+  CARD_DATA[56].img = 'https://i1.hdslb.com/bfs/new_dyn/1556e88d346e995a1254f244ab36468d519200091.jpg';
+  CARD_DATA[56].name = '伯吉斯吸虫·寒武耙虾';
+  CARD_DATA[57].img = 'https://i1.hdslb.com/bfs/new_dyn/b55d299cd97cd19242e7fb5de7bc7028519200091.jpg';
+  CARD_DATA[57].name = '伯吉斯吸虫·拟油栉虫';
+  CARD_DATA[58].img = 'https://i1.hdslb.com/bfs/new_dyn/c347edf07eb77d68fd9d5035e1fe86c2519200091.jpg';
+  CARD_DATA[58].name = '伯吉斯吸虫·怪诞虫';
+  CARD_DATA[59].img = 'https://i1.hdslb.com/bfs/new_dyn/92d8d5abdd1ddf09b64a1b209aa0b371519200091.jpg';
+  CARD_DATA[59].name = '伯吉斯吸虫·加拿大虫';
+  CARD_DATA[60].img = 'https://i1.hdslb.com/bfs/new_dyn/319f9c11dbc948ba91a26d641322eff0519200091.jpg';
+  CARD_DATA[60].name = '伯吉斯吸虫·皮卡虫';
+  CARD_DATA[61].img = 'https://i1.hdslb.com/bfs/new_dyn/1abdc2a1ff3748f62b92bd5e89a46f8e519200091.jpg';
+  CARD_DATA[61].name = '伯吉斯吸虫·伊尔东钵';
+  CARD_DATA[62].img = 'https://i1.hdslb.com/bfs/new_dyn/6d6d370225cb421b3342b641b9e3dbf2519200091.jpg';
+  CARD_DATA[62].name = '伯吉斯吸虫·足杯虫';
+  CARD_DATA[63].img = 'https://i1.hdslb.com/bfs/new_dyn/ee159272b6fd46050f4e965366f54523519200091.jpg';
+  CARD_DATA[63].name = '伯吉斯吸虫·马尔拉虫';
+  CARD_DATA[64].img = 'https://i1.hdslb.com/bfs/new_dyn/1acd6b1424c7861ee366795bb0f900dd519200091.jpg';
+  CARD_DATA[64].name = '伯吉斯吸虫·林乔利虫';
+  CARD_DATA[65].img = 'https://i1.hdslb.com/bfs/new_dyn/1d2d89f28e28bc5558f6c35743a872e3519200091.jpg';
+  CARD_DATA[65].name = '晓光之布依欧';
+  CARD_DATA[66].img = 'https://i1.hdslb.com/bfs/new_dyn/1dc484d2ce5d992a9936739bf9fc520f519200091.jpg';
+  CARD_DATA[66].name = '丝绸炸弹蛾';
+  CARD_DATA[67].img = 'https://i1.hdslb.com/bfs/new_dyn/830b637198933769a05d467ec63ce21f519200091.jpg';
+  CARD_DATA[67].name = '还流之精 旺多尼卡';
+  CARD_DATA[68].img = 'https://i1.hdslb.com/bfs/new_dyn/3aac3be14d143b5562808f7b04e174e0519200091.jpg';
+  CARD_DATA[68].name = '配对恶魔';
+  CARD_DATA[69].img = 'https://i1.hdslb.com/bfs/new_dyn/944a746d44ef8b38dbd44503c2a49f0d519200091.jpg';
+  CARD_DATA[69].name = '暗翳之信仰者 朦胧裘德';
+  CARD_DATA[70].img = 'https://i1.hdslb.com/bfs/new_dyn/819cd54549b183d9c98e4d1ff1d1dd45519200091.jpg';
+  CARD_DATA[70].name = '豪回游鲸 VIP鲸鱼';
+  CARD_DATA[71].img = 'https://i1.hdslb.com/bfs/new_dyn/fcdcb7f3237f8cc3b9edf83f330599a1519200091.jpg';
+  CARD_DATA[71].name = '指环精灵 吉尼娅';
+  CARD_DATA[72].img = 'https://i1.hdslb.com/bfs/new_dyn/fb4e5a60f9e414af3ed8af2c99670d3c519200091.jpg';
+  CARD_DATA[72].name = '质检机';
+  CARD_DATA[73].img = 'https://i1.hdslb.com/bfs/new_dyn/05068fe52acebf9f18299d85ab545a91519200091.jpg';
+  CARD_DATA[73].name = '锈铁猛犸';
+  CARD_DATA[74].img = 'https://i1.hdslb.com/bfs/new_dyn/b83ee2ccb708ea700fbde07ca06c07ea519200091.jpg';
+  CARD_DATA[74].name = '祭司 蕾瓦莉';
+  CARD_DATA[75].img = 'https://i1.hdslb.com/bfs/new_dyn/39dabc9f58ae5005e6def39a709d50ba519200091.jpg';
+  CARD_DATA[75].name = '奇迹渡鸦-供品的仪式';
+  CARD_DATA[76].img = '';
+  CARD_DATA[76].name = '';
+  CARD_DATA[77].img = 'https://i1.hdslb.com/bfs/new_dyn/30771a42cfde3dc050bfe0d7c91b2188519200091.jpg';
+  CARD_DATA[77].name = '磁通超导铠骑';
+  CARD_DATA[78].img = 'https://i1.hdslb.com/bfs/new_dyn/8b6e9f33be1f47fbf32986e7cc54b91a519200091.jpg';
+  CARD_DATA[78].name = '蜃欺龙';
+  CARD_DATA[79].img = '';
+  CARD_DATA[79].name = '';
+  CARD_DATA[80].img = '';
+  CARD_DATA[80].name = '';
+  CARD_DATA[81].img = 'https://i1.hdslb.com/bfs/new_dyn/1f39628645d49fac863a84ad41cdeb29519200091.jpg';
+  CARD_DATA[81].name = '翠铝之机龙';
+  CARD_DATA[82].img = 'https://i1.hdslb.com/bfs/new_dyn/8c44bd6eccdb477a963ecd5d808893fc519200091.jpg';
+  CARD_DATA[82].name = '岚忌龙 迪斯托比姆';
+  CARD_DATA[83].img = 'https://i1.hdslb.com/bfs/new_dyn/3e89f87de0861329b00c414ffde3887e519200091.jpg';
+  CARD_DATA[83].name = '生命之汞 墨丘利姆';
+  CARD_DATA[84].img = 'https://i1.hdslb.com/bfs/new_dyn/c7102a13cc704de95f6184bb724429cc519200091.jpg';
+  CARD_DATA[84].name = '游戏自游机GG';
+  CARD_DATA[85].img = 'https://i1.hdslb.com/bfs/new_dyn/0340dd0c6db2192ccd29decd88895499519200091.jpg';
+  CARD_DATA[85].name = '死宰 萨姆艾尔';
+  CARD_DATA[86].img = '';
+  CARD_DATA[86].name = '';
+  CARD_DATA[87].img = '';
+  CARD_DATA[87].name = '';
+  CARD_DATA[88].img = '';
+  CARD_DATA[88].name = '';
+  CARD_DATA[89].img = 'https://i1.hdslb.com/bfs/new_dyn/59493e6b9c258a282024e098db41822f519200091.jpg';
+  CARD_DATA[89].name = '超量叠光';
+  CARD_DATA[90].img = 'https://i1.hdslb.com/bfs/new_dyn/0e1b4130071453801764ed661fe78ee0519200091.jpg';
+  CARD_DATA[90].name = '魔术师的空华';
+  CARD_DATA[91].img = 'https://i1.hdslb.com/bfs/new_dyn/d9897244ccc2bfdaa8272215661602df519200091.jpg';
+  CARD_DATA[91].name = '大狼的恶作剧';
+  CARD_DATA[92].img = 'https://i1.hdslb.com/bfs/new_dyn/f4b1ddeb4dca642b8b0926d2bdb5c85b519200091.jpg';
+  CARD_DATA[92].name = '恶怪死之雨';
+  CARD_DATA[93].img = '';
+  CARD_DATA[93].name = '';
+  CARD_DATA[94].img = '';
+  CARD_DATA[94].name = '';
+  CARD_DATA[95].img = '';
+  CARD_DATA[95].name = '';
+  CARD_DATA[96].img = '';
+  CARD_DATA[96].name = '';
+  CARD_DATA[97].img = '';
+  CARD_DATA[97].name = '';
+  CARD_DATA[98].img = 'https://i1.hdslb.com/bfs/new_dyn/6b38afc510a5a417d89f753f261311e7519200091.jpg';
+  CARD_DATA[98].name = '幻创之混拼恐龙';
+  CARD_DATA[99].img = 'https://i1.hdslb.com/bfs/new_dyn/c9625a186d9ceb7d4b01dd654375962e519200091.jpg';
+  CARD_DATA[99].name = '食魂窃蛋龙';
+  CARD_DATA[100].img = 'https://i1.hdslb.com/bfs/new_dyn/92c67a179f012809dde27217a72d552d519200091.jpg';
+  CARD_DATA[100].name = '暴雨之结界像';
+  CARD_DATA[101].img = '';
+  CARD_DATA[101].name = '';
+  CARD_DATA[102].img = '';
+  CARD_DATA[102].name = '';
+  CARD_DATA[103].img = '';
+  CARD_DATA[103].name = '';
+  CARD_DATA[104].img = 'https://i1.hdslb.com/bfs/new_dyn/a74208ed64c4bb68ef9a34c4e373782b519200091.jpg';
+  CARD_DATA[104].name = '进化帝·半鸟龙';
+  CARD_DATA[105].img = '';
+  CARD_DATA[105].name = '';
+  CARD_DATA[106].img = 'https://i1.hdslb.com/bfs/new_dyn/9b3bbedefb66287c2a7d4469161297c5519200091.jpg';
+  CARD_DATA[106].name = '化石调查';
+  CARD_DATA[107].img = 'https://i1.hdslb.com/bfs/new_dyn/c12e142ca7f07caf839d73742644ccda519200091.jpg';
+  CARD_DATA[107].name = '魔鬼喜剧演员';
+  CARD_DATA[108].img = 'https://i1.hdslb.com/bfs/new_dyn/216e57a6222c9bcff5456940c9e2405a519200091.jpg';
+  CARD_DATA[108].name = '针虫的巢穴';
+  CARD_DATA[109].img = 'https://i1.hdslb.com/bfs/new_dyn/7b7f0e93578451ce35c33cde619a784b519200091.jpg';
+  CARD_DATA[109].name = '仁王立';
+  CARD_DATA[110].img = 'https://i1.hdslb.com/bfs/new_dyn/31d0a906280226112ba11bbf8dd96087519200091.jpg';
+  CARD_DATA[110].name = '事务回滚';
+  CARD_DATA[111].img = 'https://i1.hdslb.com/bfs/new_dyn/37e8c971a72cac6bf92e10b1acda1f8a519200091.jpg';
+  CARD_DATA[111].name = '妖怪的恶作剧';
+  CARD_DATA[112].img = 'https://i1.hdslb.com/bfs/new_dyn/37855ad48f7350d30d0f9f2ee1d67cb1519200091.jpg';
+  CARD_DATA[112].name = '小妖的恶作剧';
+  CARD_DATA[113].img = 'https://i1.hdslb.com/bfs/new_dyn/2780bdbe6d106bd609f669142c7fbc89519200091.jpg';
+  CARD_DATA[113].name = '妖精传姬-白雪';
+  CARD_DATA[114].img = 'https://i1.hdslb.com/bfs/new_dyn/144507bc107d150e3e0fb4d47eeb06eb519200091.jpg';
+  CARD_DATA[114].name = '驱魔姐妹·恰莱努';
+  CARD_DATA[115].img = 'https://i1.hdslb.com/bfs/new_dyn/c707964cfea029f734fcdc1f45b39937519200091.jpg';
+  CARD_DATA[115].name = '驱魔姐妹·索菲亚';
+  CARD_DATA[116].img = 'https://i1.hdslb.com/bfs/new_dyn/5aef354b7beeeebbc2348423f7d1eb65519200091.jpg';
+  CARD_DATA[116].name = '驱魔姐妹·吉卜利努';
+  CARD_DATA[117].img = 'https://i1.hdslb.com/bfs/new_dyn/3bd124ba6a8b52591552bf8fc23cc91c519200091.jpg';
+  CARD_DATA[117].name = '驱魔姐妹·阿索菲尔';
+  CARD_DATA[118].img = 'https://i1.hdslb.com/bfs/new_dyn/4e632e270de480389e3fe37c52296043519200091.jpg';
+  CARD_DATA[118].name = '牙狼之双王 罗慕路斯-雷穆斯';
+  CARD_DATA[119].img = 'https://i1.hdslb.com/bfs/new_dyn/bc02fe673889ad917fcc96102a915dc8519200091.jpg';
+  CARD_DATA[119].name = '辉银之天空船-列奥号';
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
