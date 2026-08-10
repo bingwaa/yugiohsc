@@ -4,6 +4,7 @@
     { code: 'SGP1', file: 'views/SGP1.html', title: '时光飞越包' },
     { code: 'UT01', file: 'views/UT01.html', title: '实战精选' },
     { code: 'DBGV', file: 'views/DBGV.html', title: '荣光胜利者' },
+    { code: 'WPS3', file: 'views/WPS3.html', title: '世界先行精选包2026' },
   ];
   const DAY = 86400000;
 
