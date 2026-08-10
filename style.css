@@ -31,12 +31,17 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .table-wrap ~ .site-footer{margin-top:0;padding-top:16px} /* 子页面页脚：距表格 16px */
 
 /* ---------- 首页：公告栏 + 入口 ---------- */
-.announce{
+.announce-stack{
   position:fixed;
   top:calc(var(--header-h) + 16px);
   right:16px;
   width:210px;
-  z-index:10;
+  z-index:30; /* 高于 footer(20)，避免滚动时被页脚盖住 */
+  display:flex;
+  flex-direction:column;
+  gap:16px; /* 公告栏与二维码间距 */
+}
+.announce,.qrcode{
   background:var(--card);
   border:1px solid var(--primary);
   border-radius:10px;
@@ -48,7 +53,10 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 }
 .announce p{margin:0;line-height:1.6}
 .announce p + p{margin-top:4px}
-.announce:hover{transform:translateY(-2px)}
+.announce:hover,.qrcode:hover{transform:translateY(-2px)}
+.qrcode{padding:12px}
+.qrcode img{width:100%;height:auto;display:block;border-radius:6px}
+.qrcode p{margin:8px 0 0;text-align:center}
 #widget-area{position:fixed;top:calc(var(--header-h) + 16px);left:16px;right:calc(16px + 210px + 16px);border:1px solid var(--primary);border-radius:10px;overflow:hidden}
 .page-list{background:var(--card);border-radius:10px;box-shadow:0 8px 30px rgba(15,23,42,.18);overflow:hidden}
 .page-link{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;text-align:left;font-size:14px;font-weight:400;color:var(--text);text-decoration:none;padding:12px 16px;line-height:1.5;transition:color .2s}
@@ -93,8 +101,11 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 
 /* ---------- 窄屏：公告栏与入口改为流式，左右各留16px ---------- */
 @media (max-width:768px){
-  .announce{position:static;width:auto;margin:20px 16px 0;text-align:center}
-  #widget-area{position:static;margin:20px 16px 0;padding:0}
+  main{display:flex;flex-direction:column}
+  .announce-stack{position:static;display:contents} /* 打散容器，让公告、入口、二维码按 order 重排 */
+  .announce{order:1;margin:20px 16px 0}
+  #widget-area{order:2;position:static;margin:20px 16px 0;padding:0}
+  .qrcode{order:3;margin:16px 16px 20px} /* 距 widget-area 16px */
   .panel-tools{flex-wrap:wrap}
   #search-input{flex:1 1 100%}
   .site-footer{margin-top:0}
