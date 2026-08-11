@@ -105,7 +105,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
   .announce-stack{position:static;display:contents} /* 打散容器，让公告、入口、二维码按 order 重排 */
   .announce{order:1;margin:20px 16px 0}
   #widget-area{order:2;position:static;margin:20px 16px 0;padding:0}
-  .qrcode{order:3;margin:16px 16px 20px} /* 距 widget-area 16px */
+  .qrcode{order:3;width:210px;align-self:flex-end;margin:16px 16px 20px} /* 桌面端大小，靠右对齐 */
   .panel-tools{flex-wrap:wrap}
   #search-input{flex:1 1 100%}
   .site-footer{margin-top:0}
