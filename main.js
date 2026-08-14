@@ -6,6 +6,7 @@
     { code: 'DBGV', file: 'views/DBGV.html', title: '荣光胜利者' },
     { code: 'WPS3', file: 'views/WPS3.html', title: '世界先行精选包2026' },
     { code: 'YAC1', file: 'views/YAC1.html', title: '源绘典藏包' },
+    { code: 'IMPH', file: 'views/IMPH.html', title: '不死凤凰+补缀包' },
   ];
   const DAY = 86400000;
 
