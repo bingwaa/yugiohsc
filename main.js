@@ -1,12 +1,12 @@
 (() => {
   const PAGES = [
-    { code: 'BETB', file: 'views/BETB.html', title: '勇无止尽+补缀包' },
-    { code: 'SGP1', file: 'views/SGP1.html', title: '时光飞越包' },
-    { code: 'UT01', file: 'views/UT01.html', title: '实战精选' },
-    { code: 'DBGV', file: 'views/DBGV.html', title: '荣光胜利者' },
-    { code: 'WPS3', file: 'views/WPS3.html', title: '世界先行精选包2026' },
-    { code: 'YAC1', file: 'views/YAC1.html', title: '源绘典藏包' },
-    { code: 'IMPH', file: 'views/IMPH.html', title: '不死凤凰+补缀包' },
+    { code: 'BETB', file: 'BETB.html', title: '勇无止尽+补缀包' },
+    { code: 'SGP1', file: 'SGP1.html', title: '时光飞越包' },
+    { code: 'UT01', file: 'UT01.html', title: '实战精选' },
+    { code: 'DBGV', file: 'DBGV.html', title: '荣光胜利者' },
+    { code: 'WPS3', file: 'WPS3.html', title: '世界先行精选包2026' },
+    { code: 'YAC1', file: 'YAC1.html', title: '源绘典藏包' },
+    { code: 'IMPH', file: 'IMPH.html', title: '不死凤凰+补缀包' },
   ];
   const DAY = 86400000;
 
