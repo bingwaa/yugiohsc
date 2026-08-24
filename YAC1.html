@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>YAC1</title>
+  <link rel="icon" type="image/png" href="assets/images/icon16.png">
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">简中卡表</a>
+      <div class="header-links">
+        <a class="qq-link" href="https://qm.qq.com/q/MicO5jVS8K" target="_blank" rel="noopener" aria-label="QQ 群">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg>
+        </a>
+        <a class="github-link" href="https://github.com/bingwaa/yugiohsc" target="_blank" rel="noopener" aria-label="GitHub 仓库">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container table-wrap">
+    <div class="panel">
+      <header class="panel-head">
+        <div>
+          <h1 id="page-title">源绘典藏包</h1>
+          <p class="small">发售日 2026/12/26</p>
+        </div>
+        <div class="panel-tools">
+          <button id="export-btn" class="action-btn">导出卡表</button>
+          <button id="toggle-mode" class="action-btn">显示全部</button>
+          <div class="paging">
+            <button id="prev-page" class="action-btn">上一页</button>
+            <span id="page-info" class="small"></span>
+            <button id="next-page" class="action-btn">下一页</button>
+          </div>
+          <input id="search-input" placeholder="搜索卡名或编号" aria-label="搜索">
+        </div>
+      </header>
+      <div class="table-container">
+        <div class="data-grid" id="data-grid" role="grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">©2026 镜饼蛙</div>
+  </footer>
+  <script>
+  window.CARD_DATA = Array.from({ length: 100 }, (_, i) => ({
+    id: i + 1,
+    name: String(i + 1).padStart(3, '0'),
+    desc: String(i + 1).padStart(3, '0'),
+    img: 'assets/images/null.png'
+  }));
+  CARD_DATA[0].img = '';
+  CARD_DATA[0].name = '';
+  CARD_DATA[1].img = '';
+  CARD_DATA[1].name = '';
+  CARD_DATA[2].img = '';
+  CARD_DATA[2].name = '';
+  CARD_DATA[3].img = '';
+  CARD_DATA[3].name = '';
+  CARD_DATA[4].img = '';
+  CARD_DATA[4].name = '';
+  CARD_DATA[5].img = '';
+  CARD_DATA[5].name = '';
+  CARD_DATA[6].img = '';
+  CARD_DATA[6].name = '';
+  CARD_DATA[7].img = '';
+  CARD_DATA[7].name = '';
+  CARD_DATA[8].img = '';
+  CARD_DATA[8].name = '';
+  CARD_DATA[9].img = '';
+  CARD_DATA[9].name = '';
+  CARD_DATA[10].img = '';
+  CARD_DATA[10].name = '';
+  CARD_DATA[11].img = '';
+  CARD_DATA[11].name = '';
+  CARD_DATA[12].img = '';
+  CARD_DATA[12].name = '';
+  CARD_DATA[13].img = '';
+  CARD_DATA[13].name = '';
+  CARD_DATA[14].img = '';
+  CARD_DATA[14].name = '';
+  CARD_DATA[15].img = '';
+  CARD_DATA[15].name = '';
+  CARD_DATA[16].img = '';
+  CARD_DATA[16].name = '';
+  CARD_DATA[17].img = '';
+  CARD_DATA[17].name = '';
+  CARD_DATA[18].img = '';
+  CARD_DATA[18].name = '';
+  CARD_DATA[19].img = '';
+  CARD_DATA[19].name = '';
+  CARD_DATA[20].img = '';
+  CARD_DATA[20].name = '';
+  CARD_DATA[21].img = '';
+  CARD_DATA[21].name = '';
+  CARD_DATA[22].img = '';
+  CARD_DATA[22].name = '';
+  CARD_DATA[23].img = '';
+  CARD_DATA[23].name = '';
+  CARD_DATA[24].img = '';
+  CARD_DATA[24].name = '';
+  CARD_DATA[25].img = '';
+  CARD_DATA[25].name = '';
+  CARD_DATA[26].img = '';
+  CARD_DATA[26].name = '';
+  CARD_DATA[27].img = '';
+  CARD_DATA[27].name = '';
+  CARD_DATA[28].img = '';
+  CARD_DATA[28].name = '';
+  CARD_DATA[29].img = '';
+  CARD_DATA[29].name = '';
+  CARD_DATA[30].img = '';
+  CARD_DATA[30].name = '';
+  CARD_DATA[31].img = '';
+  CARD_DATA[31].name = '';
+  CARD_DATA[32].img = '';
+  CARD_DATA[32].name = '';
+  CARD_DATA[33].img = '';
+  CARD_DATA[33].name = '';
+  CARD_DATA[34].img = '';
+  CARD_DATA[34].name = '';
+  CARD_DATA[35].img = '';
+  CARD_DATA[35].name = '';
+  CARD_DATA[36].img = '';
+  CARD_DATA[36].name = '';
+  CARD_DATA[37].img = '';
+  CARD_DATA[37].name = '';
+  CARD_DATA[38].img = '';
+  CARD_DATA[38].name = '';
+  CARD_DATA[39].img = '';
+  CARD_DATA[39].name = '';
+  CARD_DATA[40].img = '';
+  CARD_DATA[40].name = '';
+  CARD_DATA[41].img = '';
+  CARD_DATA[41].name = '';
+  CARD_DATA[42].img = '';
+  CARD_DATA[42].name = '';
+  CARD_DATA[43].img = '';
+  CARD_DATA[43].name = '';
+  CARD_DATA[44].img = '';
+  CARD_DATA[44].name = '';
+  CARD_DATA[45].img = '';
+  CARD_DATA[45].name = '';
+  CARD_DATA[46].img = '';
+  CARD_DATA[46].name = '';
+  CARD_DATA[47].img = '';
+  CARD_DATA[47].name = '';
+  CARD_DATA[48].img = '';
+  CARD_DATA[48].name = '';
+  CARD_DATA[49].img = '';
+  CARD_DATA[49].name = '';
+  CARD_DATA[50].img = '';
+  CARD_DATA[50].name = '';
+  CARD_DATA[51].img = '';
+  CARD_DATA[51].name = '';
+  CARD_DATA[52].img = '';
+  CARD_DATA[52].name = '';
+  CARD_DATA[53].img = '';
+  CARD_DATA[53].name = '';
+  CARD_DATA[54].img = '';
+  CARD_DATA[54].name = '';
+  CARD_DATA[55].img = '';
+  CARD_DATA[55].name = '';
+  CARD_DATA[56].img = '';
+  CARD_DATA[56].name = '';
+  CARD_DATA[57].img = '';
+  CARD_DATA[57].name = '';
+  CARD_DATA[58].img = '';
+  CARD_DATA[58].name = '';
+  CARD_DATA[59].img = '';
+  CARD_DATA[59].name = '';
+  CARD_DATA[60].img = '';
+  CARD_DATA[60].name = '';
+  CARD_DATA[61].img = '';
+  CARD_DATA[61].name = '';
+  CARD_DATA[62].img = '';
+  CARD_DATA[62].name = '';
+  CARD_DATA[63].img = '';
+  CARD_DATA[63].name = '';
+  CARD_DATA[64].img = '';
+  CARD_DATA[64].name = '';
+  CARD_DATA[65].img = '';
+  CARD_DATA[65].name = '';
+  CARD_DATA[66].img = '';
+  CARD_DATA[66].name = '';
+  CARD_DATA[67].img = '';
+  CARD_DATA[67].name = '';
+  CARD_DATA[68].img = '';
+  CARD_DATA[68].name = '';
+  CARD_DATA[69].img = '';
+  CARD_DATA[69].name = '';
+  CARD_DATA[70].img = '';
+  CARD_DATA[70].name = '';
+  CARD_DATA[71].img = '';
+  CARD_DATA[71].name = '';
+  CARD_DATA[72].img = '';
+  CARD_DATA[72].name = '';
+  CARD_DATA[73].img = '';
+  CARD_DATA[73].name = '';
+  CARD_DATA[74].img = '';
+  CARD_DATA[74].name = '';
+  CARD_DATA[75].img = '';
+  CARD_DATA[75].name = '';
+  CARD_DATA[76].img = '';
+  CARD_DATA[76].name = '';
+  CARD_DATA[77].img = '';
+  CARD_DATA[77].name = '';
+  CARD_DATA[78].img = '';
+  CARD_DATA[78].name = '';
+  CARD_DATA[79].img = '';
+  CARD_DATA[79].name = '';
+  CARD_DATA[80].img = '';
+  CARD_DATA[80].name = '';
+  CARD_DATA[81].img = '';
+  CARD_DATA[81].name = '';
+  CARD_DATA[82].img = '';
+  CARD_DATA[82].name = '';
+  CARD_DATA[83].img = '';
+  CARD_DATA[83].name = '';
+  CARD_DATA[84].img = '';
+  CARD_DATA[84].name = '';
+  CARD_DATA[85].img = '';
+  CARD_DATA[85].name = '';
+  CARD_DATA[86].img = '';
+  CARD_DATA[86].name = '';
+  CARD_DATA[87].img = '';
+  CARD_DATA[87].name = '';
+  CARD_DATA[88].img = '';
+  CARD_DATA[88].name = '';
+  CARD_DATA[89].img = '';
+  CARD_DATA[89].name = '';
+  CARD_DATA[90].img = '';
+  CARD_DATA[90].name = '';
+  CARD_DATA[91].img = '';
+  CARD_DATA[91].name = '';
+  CARD_DATA[92].img = '';
+  CARD_DATA[92].name = '';
+  CARD_DATA[93].img = '';
+  CARD_DATA[93].name = '';
+  CARD_DATA[94].img = '';
+  CARD_DATA[94].name = '';
+  CARD_DATA[95].img = '';
+  CARD_DATA[95].name = '';
+  CARD_DATA[96].img = '';
+  CARD_DATA[96].name = '';
+  CARD_DATA[97].img = '';
+  CARD_DATA[97].name = '';
+  CARD_DATA[98].img = '';
+  CARD_DATA[98].name = '';
+  CARD_DATA[99].img = '';
+  CARD_DATA[99].name = '';
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
