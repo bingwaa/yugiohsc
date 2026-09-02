@@ -2,3 +2,4 @@
 # auto commit
 root="$(git rev-parse --show-toplevel)" || exit 1
 node "$root/scripts/gen-updates.js" && git add "$root/updates.json"
+node "$root/scripts/gen-version.js" && git add "$root/index.html"
