@@ -88,20 +88,26 @@
     let done = 0;
     const total = items.length + (SHOW_QR ? 1 : 0); /* 图片数，开启时含二维码 */
     const bump = () => { done++; update(done / total); };
+    /* 无 CORS 头的 CDN（如 momobako）直连会被 CORS 拦截，需经代理取图；某代理 404/失败时依次切换下一个 */
+    const PROXIES = [
+      url => 'https://images.weserv.nl/?url=' + encodeURIComponent(url),
+      url => 'https://wsrv.nl/?url=' + encodeURIComponent(url),
+      url => 'https://corsproxy.io/?url=' + encodeURIComponent(url)
+    ];
     const load = item => new Promise(res => {
       if (!item.img) { bump(); return res({ item, img: null }); }
-      const proxy = url => 'https://images.weserv.nl/?url=' + encodeURIComponent(url); /* 无 CORS 头的 CDN 经代理取图 */
+      const sources = [item.img, ...PROXIES.map(p => p(item.img))]; /* 先直连，再逐个代理 */
       let settled = false;
       const finish = imgObj => { if (settled) return; settled = true; clearTimeout(t); bump(); res({ item, img: imgObj }); };
-      const t = setTimeout(() => finish(null), 15000); /* 直连加代理两次尝试的合计超时，超时按无图处理 */
-      const tryLoad = url => {
+      const t = setTimeout(() => finish(null), 15000); /* 直连+各代理合计超时，超时按无图处理 */
+      const tryLoad = i => {
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = () => finish(img);
-        img.onerror = () => { if (url === item.img) tryLoad(proxy(item.img)); else finish(null); }; /* 直连被 CORS 拦截时经代理重试一次 */
-        img.src = url;
+        img.onerror = () => (i + 1 < sources.length ? tryLoad(i + 1) : finish(null)); /* 直连被 CORS 拦截或代理 404 时切换下一个源 */
+        img.src = sources[i];
       };
-      tryLoad(item.img);
+      tryLoad(0);
     });
     const loadQr = () => new Promise(res => {
       const img = new Image();
