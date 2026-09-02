@@ -28,10 +28,10 @@
     return null;
   };
 
-  /* 超过5天未更新：有更新时间且未超过5天视为新更新，否则归入按发售日排序 */
-  const isRecent = p => !!(p.time && rel(p.time));
   /* 从「发售日 YYYY/MM/DD」解析时间戳；解析失败返回 0，排序时垫底 */
   const releaseTs = s => { const m = String(s).match(/(\d{4})\/(\d{2})\/(\d{2})/); return m ? new Date(+m[1], +m[2] - 1, +m[3]).getTime() : 0; };
+  /* 更新时间按日历天归一为本地零点；同一天更新的页面视为「更新日期相同」 */
+  const dayTs = d => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
 
   /* 从子页面 HTML 解析 p.small 内容，用于主页面发售日展示 */
   const smallOf = html => { const m = String(html).match(/<p class="small">([^<]*)<\/p>/); return m ? m[1].trim() : ''; };
@@ -49,10 +49,10 @@
 
   const render = rows => {
     rows.sort((a, b) => {
-      const ra = isRecent(a), rb = isRecent(b);
-      if (ra !== rb) return ra ? -1 : 1;
-      if (ra) return (b.time || 0) - (a.time || 0); /* 新更新的排在上头 */
-      return releaseTs(b.released) - releaseTs(a.released); /* 超过5天未更新的按发售日从新到旧 */
+      const da = a.time ? dayTs(a.time) : 0;
+      const db = b.time ? dayTs(b.time) : 0;
+      if (da !== db) return db - da; /* 更新日期(按天)从新到旧；无更新时间的垫底 */
+      return releaseTs(b.released) - releaseTs(a.released); /* 更新日期相同按发售日从新到旧 */
     });
     area.innerHTML = '<div class="page-list">' + rows.map(p => {
       const relTxt = p.time ? rel(p.time) : null;
