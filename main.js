@@ -30,8 +30,10 @@
 
   /* 从「发售日 YYYY/MM/DD」解析时间戳；解析失败返回 0，排序时垫底 */
   const releaseTs = s => { const m = String(s).match(/(\d{4})\/(\d{2})\/(\d{2})/); return m ? new Date(+m[1], +m[2] - 1, +m[3]).getTime() : 0; };
-  /* 更新时间精确到秒（去掉毫秒）；同一秒内更新的页面视为「更新日期相同」 */
+  /* 更新时间精确到秒（去掉毫秒）；不同天按此从新到旧 */
   const secondTs = d => Math.floor(d.getTime() / 1000) * 1000;
+  /* 更新日期按日历日对齐；同一天更新的页面视为「更新日期相同」 */
+  const dayTs = d => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x.getTime(); };
 
   /* 从子页面 HTML 解析 p.small 内容，用于主页面发售日展示 */
   const smallOf = html => { const m = String(html).match(/<p class="small">([^<]*)<\/p>/); return m ? m[1].trim() : ''; };
@@ -49,10 +51,12 @@
 
   const render = rows => {
     rows.sort((a, b) => {
+      const da = a.time ? dayTs(a.time) : 0;
+      const db = b.time ? dayTs(b.time) : 0;
+      if (da === db) return releaseTs(b.released) - releaseTs(a.released); /* 同一天更新按发售日从新到旧 */
       const ta = a.time ? secondTs(a.time) : 0;
       const tb = b.time ? secondTs(b.time) : 0;
-      if (ta !== tb) return tb - ta; /* 更新日期从新到旧；无更新时间的垫底 */
-      return releaseTs(b.released) - releaseTs(a.released); /* 更新日期相同按发售日从新到旧 */
+      return tb - ta; /* 不同天按更新时间从新到旧；无更新时间垫底 */
     });
     area.innerHTML = '<div class="page-list">' + rows.map(p => {
       const relTxt = p.time ? rel(p.time) : null;
