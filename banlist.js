@@ -4,7 +4,7 @@
 
   const search = document.getElementById('search-input');
 
-  /* 数据由 forbidden_limited.html 内联定义（window.CARD_GROUPS），banlist.js 只负责渲染 */
+  /* 数据由 ban.html 内联定义（window.CARD_GROUPS），banlist.js 只负责渲染 */
   const GROUPS = window.CARD_GROUPS || [];
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
