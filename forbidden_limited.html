@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>简中禁卡表</title>
+  <link rel="icon" type="image/png" href="assets/images/icon16.png">
+  <link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">简中卡表</a>
+      <div class="header-links">
+        <a class="qq-link" href="https://qm.qq.com/q/MicO5jVS8K" target="_blank" rel="noopener" aria-label="QQ 群">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg>
+        </a>
+        <a class="github-link" href="https://github.com/bingwaa/yugiohsc" target="_blank" rel="noopener" aria-label="GitHub 仓库">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container table-wrap">
+    <div class="panel">
+      <header class="panel-head">
+        <div>
+          <h1 id="page-title">简中禁卡表</h1>
+          <p class="small">适用 2026/07/01</p>
+        </div>
+        <div class="panel-tools">
+          <input id="search-input" placeholder="搜索卡名" aria-label="搜索">
+        </div>
+      </header>
+      <div class="table-container">
+        <div class="ban-groups" id="ban-groups"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">©2026 镜饼蛙</div>
+  </footer>
+  <script>
+  (() => {
+    const IMG = id => `https://cdn.233.momobako.com/ygoimg/sc/${id}.webp`;
+    window.CARD_GROUPS = [
+      { title: '2026年7月表更新', items: [
+        { name: '大植然蔷薇鞭', img: IMG(61049315), badge: '禁止' },
+        { name: '神鹰羽毛吹雪', img: IMG(87639778), badge: '禁止' },
+        { name: '码丽丝＜兵＞三月兔', img: IMG(20938824), badge: '限制' },
+        { name: '棉花喵☆黯蜜', img: IMG(10966439), badge: '限制' },
+        { name: '杀手旋律・萝塔丽', img: IMG(17209452), badge: '限制' },
+        { name: '霸王眷龙 凶饿猛毒', img: IMG(43387895), badge: '限制' },
+        { name: '同步超车', img: IMG(99243014), badge: '限制' },
+        { name: '神之宣告', img: IMG(41420027), badge: '准限制→限制' },
+        { name: '超融合', img: IMG(48130397), badge: '准限制' },
+        { name: '杀手旋律・同步', img: IMG(78058681), badge: '准限制' },
+        { name: '神之警告', img: IMG(84749824), badge: '准限制' },
+      ]},
+      { title: '禁止卡', items: [
+        { name: '大植然蔷薇鞭', img: IMG(61049315) },
+        { name: '古遗物－戴思塞斯', img: IMG(20292186) },
+        { name: '魔鬼弗兰肯', img: IMG(69015963) },
+        { name: '泪冠哀歌・琪多卡洛斯', img: IMG(92731385) },
+        { name: '琰魔龙王 暗红恶魔灾厄', img: IMG(62242678) },
+        { name: '编号41 泥睡魔兽 貘熟梦', img: IMG(90590303) },
+        { name: '编号67 天堂骰子锤手', img: IMG(35772782) },
+        { name: '深渊潜伏者', img: IMG(21044178) },
+        { name: '永远的淑女 贝缇丽彩', img: IMG(27552504) },
+        { name: '真龙皇 神子灾兽', img: IMG(88581108) },
+        { name: '电光闪灵・精灵', img: IMG(27381364) },
+        { name: '梦魇曲・美人鱼', img: IMG(3679218) },
+        { name: '守护龙 爱迦贝音', img: IMG(59537380) },
+        { name: '守护龙 希露比', img: IMG(86148577) },
+        { name: '水晶机巧－玻璃光纤', img: IMG(50588353) },
+        { name: '召命之神弓－阿波罗萨', img: IMG(4280258) },
+        { name: '盗贼的烟雾弹', img: IMG(63789924) },
+        { name: '凯撒竞技场', img: IMG(35059553) },
+        { name: '魔兽之怀柔', img: IMG(72537897) },
+        { name: '魔钟洞', img: IMG(76375976) },
+        { name: '强欲之壶', img: IMG(55144522) },
+        { name: '分离烙印', img: IMG(1041278) },
+        { name: '神鹰羽毛吹雪', img: IMG(87639778) },
+        { name: '虚无空间', img: IMG(5851097) },
+        { name: '召唤限制器', img: IMG(23516703) },
+      ]},
+      { title: '限制卡', items: [
+        { name: '超燃・雷热涡炉', img: IMG(34022970) },
+        { name: '次元吸引者', img: IMG(91800273) },
+        { name: '对击斗魂 螺旋', img: IMG(29302858) },
+        { name: '对击斗魂 神圣苏', img: IMG(93156774) },
+        { name: '精神骨架装备 伽马', img: IMG(38814750) },
+        { name: '剑极・雷热涡炉', img: IMG(35844557) },
+        { name: '泪冠哀歌・哈弗妮丝', img: IMG(37961969) },
+        { name: 'K9－66a号 冰精', img: IMG(28642461) },
+        { name: '码丽丝＜兵＞三月兔', img: IMG(20938824) },
+        { name: '码丽丝＜兵＞睡鼠', img: IMG(32061192) },
+        { name: '棉花喵☆黯蜜', img: IMG(10966439) },
+        { name: '怒刹帝利・独角兽', img: IMG(68304193) },
+        { name: '怒刹帝利・芬里尔', img: IMG(32909498) },
+        { name: '杀手旋律・萝塔丽', img: IMG(17209452) },
+        { name: '蛇眼・艾柯赛尔', img: IMG(9674034) },
+        { name: '蛇眼炎燐', img: IMG(90241276) },
+        { name: '天杯龙 红中龙', img: IMG(91810826) },
+        { name: '星宿龙 姆露露', img: IMG(7375867) },
+        { name: '渊兽 德尔伊德布鲁姆', img: IMG(6637331) },
+        { name: '渊兽 玛格纳姆特', img: IMG(33854624) },
+        { name: '霸王眷龙 凶饿猛毒', img: IMG(43387895) },
+        { name: '虹光之宣告者', img: IMG(79606837) },
+        { name: '精神骨架装载王 欧米伽', img: IMG(74586817) },
+        { name: '强炼装・银金', img: IMG(24094258) },
+        { name: 'S：P小夜骑士', img: IMG(29301450) },
+        { name: '黯蜜★史拿奇', img: IMG(30581601) },
+        { name: '暗之诱惑', img: IMG(1475311) },
+        { name: '杯满之灿幻庄', img: IMG(30336082) },
+        { name: '布景旋转', img: IMG(73468603) },
+        { name: '封印的黄金柜', img: IMG(75500286) },
+        { name: '篝火', img: IMG(85106525) },
+        { name: '金满而谦虚之壶', img: IMG(84211599) },
+        { name: '计都星宿', img: IMG(6153210) },
+        { name: '邻人割草', img: IMG(11110587) },
+        { name: '卢恩神碑之泉', img: IMG(92107604) },
+        { name: '烙印融合', img: IMG(44362883) },
+        { name: '罗睺星宿', img: IMG(32548318) },
+        { name: '抹杀之指名者', img: IMG(65681983) },
+        { name: '闪刀机－大黄蜂无人机', img: IMG(52340444) },
+        { name: '神鹰羽毛扫', img: IMG(18144506) },
+        { name: '时空之七皇', img: IMG(7477101) },
+        { name: '“狩猎罪宝的魔鬼”', img: IMG(80845034) },
+        { name: '手牌抹杀', img: IMG(72892473) },
+        { name: '巳剑劝请', img: IMG(45171524) },
+        { name: '死者苏生', img: IMG(83764718) },
+        { name: '同步超车', img: IMG(99243014) },
+        { name: '星球改造', img: IMG(73628505) },
+        { name: '壹世坏・佩尔雷诺', img: IMG(77103950) },
+        { name: '愚蠢埋葬', img: IMG(81439173) },
+        { name: '增援', img: IMG(32807846) },
+        { name: '次元障壁', img: IMG(83326048) },
+        { name: '红灯重启', img: IMG(23002292) },
+        { name: '技能抽取', img: IMG(82732705) },
+        { name: '魔封之芳香', img: IMG(58921041) },
+        { name: '千察万别', img: IMG(24207889) },
+        { name: '群雄割据', img: IMG(90846359) },
+        { name: '神之宣告', img: IMG(41420027) },
+        { name: '御前比试', img: IMG(53334471) },
+      ]},
+      { title: '准限制卡', items: [
+        { name: '黑魔女 迪亚贝尔斯塔', img: IMG(72270339) },
+        { name: '泪冠哀歌・雷诺哈忒', img: IMG(73956664) },
+        { name: '泪冠哀歌・梅露', img: IMG(74078255) },
+        { name: '泪冠哀歌・赛莲', img: IMG(572850) },
+        { name: 'K9－17号 饭纲', img: IMG(92248362) },
+        { name: '刻魔印契之魔镌客', img: IMG(60764609) },
+        { name: '增殖的Z', img: IMG(23434538) },
+        { name: '朱光之宣告者', img: IMG(17266660) },
+        { name: '灿幻开门', img: IMG(66730191) },
+        { name: '超融合', img: IMG(48130397) },
+        { name: '墓穴指名者', img: IMG(24224830) },
+        { name: '契印魔镌・咏圣颂', img: IMG(98567237) },
+        { name: '杀手旋律・同步', img: IMG(78058681) },
+        { name: '愚蠢副葬', img: IMG(35726888) },
+        { name: '灵主王之波动', img: IMG(40366667) },
+        { name: '神之警告', img: IMG(84749824) },
+      ]},
+    ];
+  })();
+  </script>
+  <script src="banlist.js"></script>
+</body>
+</html>
