@@ -103,6 +103,11 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .ban-badge{position:absolute;top:4px;right:4px;z-index:3;padding:1px 6px;border-radius:6px;font-size:.72rem;font-weight:700;line-height:1.6;color:var(--primary);background:rgba(0,0,0,.78);border:1px solid var(--primary);pointer-events:none}
 .ban-group .cell-label{padding:6px;text-align:center;font-size:.78rem;line-height:1.3;overflow-wrap:anywhere} /* 卡图未载入时以卡名占位 */
 
+/* 分行后各行左对齐；auto-fill 固定列宽与列数，保证跨行纵向对齐 */
+@media (min-width:641px){
+  .ban-group .data-grid{grid-template-columns:repeat(auto-fill,var(--cell-w));justify-content:start}
+}
+
 /* ---------- 移动端：四列显示 ---------- */
 @media (max-width:640px){
   .data-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:auto;gap:var(--gap)}

@@ -11,6 +11,17 @@
 
   let query = '';
 
+  /* 同 badge 的卡片归为一行：按 badge 首次出现的顺序拆成多个网格 */
+  const toRows = items => {
+    const rows = new Map();
+    items.forEach(x => {
+      const key = x.badge || '';
+      if (!rows.has(key)) rows.set(key, []);
+      rows.get(key).push(x);
+    });
+    return [...rows.values()];
+  };
+
   /* 每个栏目一块网格；搜索跨栏目过滤，无命中的栏目整块隐藏 */
   const render = () => {
     const q = query.toLowerCase();
@@ -21,10 +32,12 @@
     root.innerHTML = groups.length
       ? groups.map(g =>
           `<section class="ban-group"><header class="ban-group-head"><h2>${esc(g.title)}</h2><span class="ban-count">${g.items.length} 张</span></header>` +
-          '<div class="data-grid">' + g.items.map(x =>
-            `<div class="cell" tabindex="0"><div class="cell-label">${esc(x.name)}</div>` +
-            `<img class="cell-img zoomable" src="${esc(x.img)}" alt="${esc(x.name)}" loading="lazy">` +
-            (x.badge ? `<span class="ban-badge">${esc(x.badge)}</span>` : '') + '</div>').join('') + '</div></section>').join('')
+          toRows(g.items).map(row =>
+            '<div class="data-grid">' + row.map(x =>
+              `<div class="cell" tabindex="0"><div class="cell-label">${esc(x.name)}</div>` +
+              `<img class="cell-img zoomable" src="${esc(x.img)}" alt="${esc(x.name)}" loading="lazy">` +
+              (x.badge ? `<span class="ban-badge">${esc(x.badge)}</span>` : '') + '</div>').join('') + '</div>').join('') +
+          '</section>').join('')
       : `<div class="empty">未找到匹配「${esc(query)}」的卡片</div>`;
   };
 
