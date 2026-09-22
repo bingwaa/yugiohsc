@@ -8,6 +8,7 @@
   --container:1100px;
   --cell-w:118px;
   --cell-h:172px;
+  --badge-h:20px; /* 卡片上方徽标带高度，取图标高，使图标下缘与卡片上边缘齐平 */
   --gap:8px;
   --header-h:54px;
   --widget-h:182px; /* 页面列表高度默认值；main.js 渲染后按实际高度覆盖，页脚间距恒为 16px */
@@ -100,7 +101,12 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 .ban-group-head{display:flex;align-items:baseline;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--primary)}
 .ban-group-head h2{margin:0;font-size:1rem;font-weight:700;color:var(--primary)}
 .ban-count{font-size:.85rem;color:var(--muted)}
-.ban-badge{position:absolute;top:4px;right:4px;z-index:3;padding:1px 6px;border-radius:6px;font-size:.72rem;font-weight:700;line-height:1.6;color:var(--primary);background:rgba(0,0,0,.78);border:1px solid var(--primary);pointer-events:none}
+.cell-slot{display:flex;flex-direction:column;gap:0;min-width:0} /* 徽标带 + 卡片，间距 0；徽标在卡片外，故 .cell 的 overflow:hidden 不受影响 */
+.data-grid.has-badge{grid-auto-rows:calc(var(--cell-h) + var(--badge-h))} /* 为徽标带加高行高 */
+.ban-badge{flex:none;display:flex;align-items:center;gap:2px;height:var(--badge-h);pointer-events:none;filter:drop-shadow(0 1px 3px rgba(0,0,0,.85))} /* 图标自带红环黑底，不再加药丸外框，仅用投影保证浅色背景上可读 */
+.ban-icon{display:block;width:20px;height:20px}
+.ban-arrow{display:block;flex:none;width:11px;height:11px;color:#fff} /* 实心三角，形状由 path 决定，不受字体影响 */
+.ban-badge-text{padding:1px 6px;border-radius:6px;font-size:.72rem;font-weight:700;line-height:1.6;color:var(--primary);background:rgba(0,0,0,.78);border:1px solid var(--primary)} /* 未登记 badge 的文字回退 */
 .ban-group .cell-label{padding:6px;text-align:center;font-size:.78rem;line-height:1.3;overflow-wrap:anywhere} /* 卡图未载入时以卡名占位 */
 .ban-group .data-grid+.data-grid{border-top:1px solid var(--primary);padding-top:12px} /* 分行之间的分隔线 */
 
@@ -111,8 +117,12 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
 
 /* ---------- 移动端：四列显示 ---------- */
 @media (max-width:640px){
+  :root{--badge-h:16px}
   .data-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:auto;gap:var(--gap)}
   .cell{width:100%;height:auto;aspect-ratio:59/86}
+  .data-grid.has-badge{grid-auto-rows:auto} /* 窄屏行高由内容决定，清掉桌面端加高 */
+  .ban-icon{width:16px;height:16px} /* 卡片宽度约 78px，图标同比缩小 */
+  .ban-arrow{width:9px;height:9px}
 }
 
 /* ---------- 窄屏：公告栏与入口改为流式，左右各留16px ---------- */

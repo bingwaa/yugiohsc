@@ -9,13 +9,38 @@
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+  /* 分行的分组键：完整变更对，from 缺省视为无限制(3)；无 badge 的卡片归为空键 */
+  const badgeKey = x => x.badge ? `${x.from || '无限制'}→${x.badge}` : '';
+
+  /* 变更前 / 变更后状态 -> 图标；from 缺省视为无限制(3) */
+  const STATE_ICON = {
+    '无限制': 'three',
+    '准限制': 'semi',
+    '限制': 'limited',
+    '禁止': 'forbidden',
+  };
+
+  const badgeHTML = x => {
+    if (!x.badge) return '';
+    const label = badgeKey(x);
+    const from = STATE_ICON[x.from || '无限制'];
+    const to = STATE_ICON[x.badge];
+    /* 未登记的状态回退为文字，避免数据新增时静默丢标 */
+    if (!from || !to) return `<span class="ban-badge ban-badge-text">${esc(label)}</span>`;
+    return `<span class="ban-badge" role="img" aria-label="${esc(label)}" title="${esc(label)}">` +
+      `<img class="ban-icon" src="assets/images/${from}.webp" alt="" width="64" height="64" loading="lazy">` +
+      '<svg class="ban-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 1 9 5 1 9z" fill="currentColor"/></svg>' +
+      `<img class="ban-icon" src="assets/images/${to}.webp" alt="" width="64" height="64" loading="lazy">` +
+      '</span>';
+  };
+
   let query = '';
 
   /* 同 badge 的卡片归为一行：按 badge 首次出现的顺序拆成多个网格 */
   const toRows = items => {
     const rows = new Map();
     items.forEach(x => {
-      const key = x.badge || '';
+      const key = badgeKey(x);
       if (!rows.has(key)) rows.set(key, []);
       rows.get(key).push(x);
     });
@@ -33,10 +58,12 @@
       ? groups.map(g =>
           `<section class="ban-group"><header class="ban-group-head"><h2>${esc(g.title)}</h2><span class="ban-count">${g.items.length} 张</span></header>` +
           toRows(g.items).map(row =>
-            '<div class="data-grid">' + row.map(x =>
+            /* 同一行 badge 必定一致（分组键即变更对），故首张即可决定整行是否留出徽标带 */
+            '<div class="data-grid' + (row[0].badge ? ' has-badge' : '') + '">' + row.map(x =>
+              '<div class="cell-slot">' + badgeHTML(x) +
               `<div class="cell" tabindex="0"><div class="cell-label">${esc(x.name)}</div>` +
               `<img class="cell-img zoomable" src="${esc(x.img)}" alt="${esc(x.name)}" loading="lazy">` +
-              (x.badge ? `<span class="ban-badge">${esc(x.badge)}</span>` : '') + '</div>').join('') + '</div>').join('') +
+              '</div></div>').join('') + '</div>').join('') +
           '</section>').join('')
       : `<div class="empty">未找到匹配「${esc(query)}」的卡片</div>`;
   };
