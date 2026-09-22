@@ -9,7 +9,7 @@ for (const name of readdirSync(root)) {
   const file = join(root, name);
   try {
     out[name] = statSync(file).mtime.toISOString();
-  } catch { /* 文件读取失败时跳过 */ }
+  } catch {  }
 }
 
 writeFileSync(join(root, 'updates.json'), JSON.stringify(out, null, 2) + '\n');

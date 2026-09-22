@@ -9,15 +9,12 @@
   const toggle = document.getElementById('toggle-mode');
   const PER_PAGE = 40;
 
-  /* 导出图右上角二维码与『交流反馈群』显示开关：true 显示，false 隐藏 */
   const SHOW_QR = false;
 
-  /* 数据与图片由各 UTxx.html 内联定义（window.CARD_DATA），app.js 只负责渲染 */
   const DATA = window.CARD_DATA || [];
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  /* 占位图 null.png 不参与放大，其余图片可单击放大查看 */
   const zoomable = item => item.img && !item.img.endsWith('null.png');
 
   let data = DATA, page = 1, query = '', showAll = false;
@@ -56,7 +53,6 @@
     render();
   });
 
-  /* 导出当前筛选结果（含搜索过滤）为 JPG，卡片网格样式对齐网页；导出时按钮变为进度条 */
   const exportBtn = document.getElementById('export-btn');
   if (exportBtn) exportBtn.addEventListener('click', () => {
     const items = data;
@@ -65,7 +61,7 @@
     const cols = Math.min(COLS, items.length);
     const rows = Math.ceil(items.length / cols);
     const W = cols * CELL_W * SCALE;
-    const gy = HEADER_H * SCALE; /* 顶部标题栏高度，与格子等高 */
+    const gy = HEADER_H * SCALE;
     const H = gy + rows * CELL_H * SCALE;
 
     const label = exportBtn.textContent;
@@ -84,11 +80,9 @@
       exportBtn.innerHTML = label;
     };
 
-    /* 逐张完成时更新进度；跨域不支持的图降级为无图，避免污染 canvas */
     let done = 0;
-    const total = items.length + (SHOW_QR ? 1 : 0); /* 图片数，开启时含二维码 */
+    const total = items.length + (SHOW_QR ? 1 : 0);
     const bump = () => { done++; update(done / total); };
-    /* 无 CORS 头的 CDN（如 momobako）直连会被 CORS 拦截，需经代理取图；某代理 404/失败时依次切换下一个 */
     const PROXIES = [
       url => 'https://images.weserv.nl/?url=' + encodeURIComponent(url),
       url => 'https://wsrv.nl/?url=' + encodeURIComponent(url),
@@ -96,15 +90,15 @@
     ];
     const load = item => new Promise(res => {
       if (!item.img) { bump(); return res({ item, img: null }); }
-      const sources = [item.img, ...PROXIES.map(p => p(item.img))]; /* 先直连，再逐个代理 */
+      const sources = [item.img, ...PROXIES.map(p => p(item.img))];
       let settled = false;
       const finish = imgObj => { if (settled) return; settled = true; clearTimeout(t); bump(); res({ item, img: imgObj }); };
-      const t = setTimeout(() => finish(null), 15000); /* 直连+各代理合计超时，超时按无图处理 */
+      const t = setTimeout(() => finish(null), 15000);
       const tryLoad = i => {
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = () => finish(img);
-        img.onerror = () => (i + 1 < sources.length ? tryLoad(i + 1) : finish(null)); /* 直连被 CORS 拦截或代理 404 时切换下一个源 */
+        img.onerror = () => (i + 1 < sources.length ? tryLoad(i + 1) : finish(null));
         img.src = sources[i];
       };
       tryLoad(0);
@@ -124,7 +118,6 @@
       canvas.height = H;
       const ctx = canvas.getContext('2d');
 
-      /* 顶部标题栏：深色背景 + 1px 白框，左侧标题与导出时间，右侧二维码 */
       const title = document.querySelector('#page-title')?.textContent || document.title;
       const released = document.querySelector('.panel-head p.small')?.textContent?.trim() || '';
       const now = new Date();
@@ -139,8 +132,8 @@
       if (qr) {
         const qrMaxH = gy - pad * 2;
         const text = '交流反馈群';
-        const size = qrMaxH / text.length; /* 按高度估算字号，使整列与 qr 齐高 */
-        const qrMaxW = W - pad - size - pad; /* 左侧留出竖向文字列与间距 */
+        const size = qrMaxH / text.length;
+        const qrMaxW = W - pad - size - pad;
         const qrS = Math.min(qrMaxW / qr.naturalWidth, qrMaxH / qr.naturalHeight);
         const qrW = qr.naturalWidth * qrS;
         const qrH = qr.naturalHeight * qrS;
@@ -148,7 +141,6 @@
         const qrY = pad + (qrMaxH - qrH) / 2;
         ctx.drawImage(qr, qrX, qrY, qrW, qrH);
 
-        /* 二维码左侧竖向文字，整列与 qr 齐高 */
         const s = qrH / text.length;
         const colX = qrX - pad - s / 2;
         ctx.fillStyle = '#fff';
@@ -166,7 +158,6 @@
       ctx.font = `italic 400 ${20 * SCALE}px Inter,system-ui,sans-serif`;
       if (released) ctx.fillText(released, 24 * SCALE, gy / 2 - 13 * SCALE);
       ctx.fillText(timeStr, 24 * SCALE, gy / 2 + 17 * SCALE);
-      /* 时间栏下方：站点行，样式与时间栏一致 */
       const siteY = gy / 2 + 47 * SCALE;
       ctx.fillText('制表网站 - bingwaa.xyz 网站看表更高清', 24 * SCALE, siteY);
 
@@ -176,13 +167,12 @@
         ctx.fillStyle = '#1f1f1f';
         ctx.fillRect(x, y, CELL_W * SCALE, CELL_H * SCALE);
         if (img) {
-          /* object-fit:cover 等价裁剪 */
           const s = Math.max(CELL_W * SCALE / img.naturalWidth, CELL_H * SCALE / img.naturalHeight);
           const iw = img.naturalWidth * s;
           const ih = img.naturalHeight * s;
           ctx.drawImage(img, x + (CELL_W * SCALE - iw) / 2, y + (CELL_H * SCALE - ih) / 2, iw, ih);
         }
-        if (!img) { /* 无图格子显示编号，并加 1px 白色边框 */
+        if (!img) {
           ctx.strokeStyle = '#fff';
           ctx.lineWidth = SCALE;
           ctx.strokeRect(x + SCALE / 2, y + SCALE / 2, CELL_W * SCALE - SCALE, CELL_H * SCALE - SCALE);
@@ -205,7 +195,6 @@
     }).catch(reset);
   });
 
-  /* 单击非占位图片放大查看：从原位置 0.2s 放大到居中，关闭时 0.2s 缩回原位置 */
   const closeZoom = () => {
     const overlay = document.querySelector('.zoom-overlay');
     if (!overlay || overlay.dataset.closing) return;
@@ -219,7 +208,7 @@
       width: from.width + 'px', height: from.height + 'px'
     });
     img.addEventListener('transitionend', () => overlay.remove(), { once: true });
-    setTimeout(() => overlay.remove(), 260); /* 兜底：图片未加载时 transition 不会触发 */
+    setTimeout(() => overlay.remove(), 260);
   };
 
   grid.addEventListener('click', e => {
@@ -243,7 +232,7 @@
     });
 
     const animateIn = () => {
-      void img.offsetWidth; /* 强制重排，让初始位置生效后再过渡 */
+      void img.offsetWidth;
       img.style.transition = 'left .2s ease, top .2s ease, width .2s ease, height .2s ease';
       const maxW = innerWidth - 48;
       const maxH = innerHeight - 48;
