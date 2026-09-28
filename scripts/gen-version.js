@@ -4,7 +4,8 @@ const { createHash } = require('node:crypto');
 
 const root = resolve(__dirname, '..');
 
-const ASSETS = ['main.js', 'style.css'];
+const ASSETS = ['main.js', 'style.css', 'banlist.js'];
+const PAGES = ['index.html', 'ban.html'];
 
 const hash = createHash('sha1');
 for (const name of ASSETS) {
@@ -12,10 +13,17 @@ for (const name of ASSETS) {
 }
 const v = hash.digest('hex').slice(0, 8);
 
-const index = join(root, 'index.html');
-let html = readFileSync(index, 'utf8');
-html = html.replace(/style\.css(?:\?v=[0-9a-zA-Z]+)?/, `style.css?v=${v}`);
-html = html.replace(/main\.js(?:\?v=[0-9a-zA-Z]+)?/, `main.js?v=${v}`);
-writeFileSync(index, html);
+let done = [];
+for (const page of PAGES) {
+  const file = join(root, page);
+  let html;
+  try { html = readFileSync(file, 'utf8'); } catch { continue; }
+  for (const name of ASSETS) {
+    const re = new RegExp(name.replace(/\./g, '\\.') + '(?:\\?v=[0-9a-zA-Z]+)?');
+    html = html.replace(re, `${name}?v=${v}`);
+  }
+  writeFileSync(file, html);
+  done.push(page);
+}
 
-console.log(`index.html 资源版本号已更新：${v}`);
+console.log(`资源版本号已更新：${v}（${done.join('、')}）`);

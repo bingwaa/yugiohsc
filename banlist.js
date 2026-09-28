@@ -15,6 +15,7 @@
     '准限制': 'semi',
     '限制': 'limited',
     '禁止': 'forbidden',
+    '解除限制': 'three',
   };
 
   const badgeHTML = x => {
