@@ -46,6 +46,13 @@
       .then(html => ({ ...p, time: map[p.file] ? new Date(map[p.file]) : null, released: smallOf(html) }))
       .catch(() => ({ ...p, time: map[p.file] ? new Date(map[p.file]) : null, released: '' }));
 
+  const fitTitleCol = () => {
+    document.documentElement.style.removeProperty('--title-w');
+    let w = 190;
+    area.querySelectorAll('.page-title').forEach(t => { w = Math.max(w, Math.ceil(t.getBoundingClientRect().width)); });
+    document.documentElement.style.setProperty('--title-w', `${w}px`);
+  };
+
   const syncWidgetH = () => {
     const h = area.offsetHeight;
     if (h > 0) document.documentElement.style.setProperty('--widget-h', `${h}px`);
@@ -70,6 +77,7 @@
       const released = p.released ? `<span class="page-releasedate">- ${esc(p.released)}</span>` : '';
       return `<a class="page-link" href="${esc(p.file)}"><span class="page-title">${esc(p.code)}：${esc(p.title)}</span>${released}${date}</a>`;
     }).join('') + '</div>';
+    fitTitleCol();
     syncWidgetH();
   };
 
