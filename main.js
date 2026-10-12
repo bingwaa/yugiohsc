@@ -7,6 +7,7 @@
     { code: 'WPS3', file: 'WPS3.html', title: '世界先行精选包2026' },
     { code: 'YAC1', file: 'YAC1.html', title: '源绘典藏包' },
     { code: 'IMPH', file: 'IMPH.html', title: '不死凤凰+补缀包' },
+    { code: 'RV02', file: 'RV02.html', title: '革命驱动包 -方界·海晶少女·鬼计-' }
   ];
   const DAY = 86400000;
   const RECENT_DAYS = 5;
